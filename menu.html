@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menu — AURELIO Coffee & Bistro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#080503; --bg2:#110b06; --bg3:#1c130b;
+      --gold:#c8942a; --gold-lt:#e8b84b; --cream:#eeddb0;
+      --text:#ddc9a0; --muted:#7a6850; --green:#3a6645;
+      --nav-h:72px; --r:12px;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+    .serif { font-family: 'Playfair Display', serif; }
+    h1,h2,h3 { font-family: 'Playfair Display', serif; font-weight: 900; }
+    p { line-height: 1.7; color: var(--muted); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .btn-primary { display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;font-weight:600;padding:14px 32px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;font-size:.95rem;transition:background .25s,transform .2s,box-shadow .25s; }
+    .btn-primary:hover { background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 28px rgba(200,148,42,.4); }
+    .section-label { font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);} }
+    .reveal { opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+    .reveal-d1{transition-delay:.1s;}.reveal-d2{transition-delay:.2s;}.reveal-d3{transition-delay:.3s;}
+
+    /* NAVBAR */
+    nav { position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;background:rgba(8,5,3,.85);backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid rgba(200,148,42,.12); }
+    nav .nav-inner { width:100%;max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between; }
+    .nav-logo { font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--cream);letter-spacing:.04em;text-decoration:none; }
+    .nav-logo span { color:var(--gold); }
+    .nav-links { display:flex;align-items:center;gap:36px;list-style:none; }
+    .nav-links a { color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s; }
+    .nav-links a:hover,.nav-links a.active { color:var(--cream); }
+    .nav-cta { display:flex;gap:12px; }
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--cream);border-radius:2px;transition:all .3s;}
+    .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:rgba(8,5,3,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;color:var(--cream);text-decoration:none;}
+    @media(max-width:768px){.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}}
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: calc(var(--nav-h) + 80px) 0 80px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,148,42,.07) 0%, transparent 60%), var(--bg2);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero::after { content:'MENU';position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:clamp(5rem,18vw,14rem);font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(200,148,42,.06);pointer-events:none;line-height:1; }
+    .page-hero h1 { font-size:clamp(2.5rem,6vw,5rem);color:var(--cream);margin-bottom:12px;position:relative;z-index:1; }
+    .page-hero p { max-width:500px;margin:0 auto;position:relative;z-index:1; }
+
+    /* STICKY MENU NAV */
+    .menu-nav {
+      position: sticky; top: var(--nav-h); z-index: 100;
+      background: rgba(8,5,3,.92); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,148,42,.1);
+      padding: 0 24px;
+    }
+    .menu-nav-inner { max-width:1200px;margin:0 auto;display:flex;gap:4px;overflow-x:auto;padding: 12px 0;scrollbar-width:none; }
+    .menu-nav-inner::-webkit-scrollbar{display:none;}
+    .cat-btn { flex-shrink:0;padding:10px 22px;border-radius:50px;background:transparent;color:var(--muted);border:1px solid rgba(200,148,42,.18);font-family:'Inter',sans-serif;font-weight:500;font-size:.88rem;cursor:pointer;transition:all .2s; }
+    .cat-btn.active,.cat-btn:hover { background:var(--gold);color:#fff;border-color:var(--gold); }
+
+    /* MENU SECTIONS */
+    .menu-body { padding: 60px 0 100px; }
+    .menu-section { margin-bottom: 80px; }
+    .menu-section-head { display:flex;align-items:center;gap:16px;margin-bottom:32px; }
+    .menu-section-head h2 { font-size:1.8rem;color:var(--cream); }
+    .menu-section-head .line { flex:1;height:1px;background:rgba(200,148,42,.12); }
+    .items-grid { display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px; }
+
+    /* ITEM CARD */
+    .item-card {
+      background:var(--bg3);border:1px solid rgba(200,148,42,.1);border-radius:var(--r);
+      overflow:hidden;transition:transform .25s,border-color .25s,box-shadow .25s;
+      display:flex;flex-direction:column;
+    }
+    .item-card:hover { transform:translateY(-5px);border-color:rgba(200,148,42,.3);box-shadow:0 14px 40px rgba(0,0,0,.35); }
+    .item-emoji { height:160px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:var(--bg2);flex-shrink:0; }
+    .item-body { padding:20px;flex:1;display:flex;flex-direction:column; }
+    .item-badges { display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px; }
+    .badge { font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:50px; }
+    .badge-cat { background:rgba(200,148,42,.12);color:var(--gold-lt); }
+    .badge-pop { background:rgba(58,102,69,.2);color:#7ac98a; }
+    .badge-new { background:rgba(59,130,246,.15);color:#93c5fd; }
+    .item-name { font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--cream);margin-bottom:6px; }
+    .item-desc { font-size:.84rem;color:var(--muted);line-height:1.6;flex:1;margin-bottom:16px; }
+    .item-footer { display:flex;align-items:center;justify-content:space-between; }
+    .item-price { font-size:1.1rem;font-weight:700;color:var(--gold-lt); }
+    .item-actions { display:flex;gap:8px;align-items:center; }
+    .qty-btn { width:30px;height:30px;border-radius:50%;background:var(--bg2);color:var(--text);border:1px solid rgba(200,148,42,.2);cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all .2s; }
+    .qty-btn:hover { background:var(--gold);color:#fff;border-color:var(--gold); }
+    .qty-display { font-weight:600;color:var(--cream);min-width:20px;text-align:center;font-size:.9rem; }
+    .add-btn { padding:8px 18px;border-radius:50px;background:var(--gold);color:#fff;border:none;font-weight:600;font-size:.84rem;cursor:pointer;transition:all .2s;white-space:nowrap; }
+    .add-btn:hover { background:var(--gold-lt);transform:scale(1.04); }
+
+    /* FLOATING CART */
+    .float-cart {
+      position:fixed;bottom:32px;right:32px;z-index:500;
+      background:var(--gold);color:#fff;border:none;
+      width:60px;height:60px;border-radius:50%;
+      font-size:1.3rem;cursor:pointer;
+      box-shadow:0 8px 28px rgba(200,148,42,.5);
+      display:flex;align-items:center;justify-content:center;
+      transition:transform .2s,box-shadow .2s;
+    }
+    .float-cart:hover { transform:scale(1.1);box-shadow:0 12px 36px rgba(200,148,42,.6); }
+    .cart-badge { position:absolute;top:-4px;right:-4px;background:#fff;color:var(--gold);width:22px;height:22px;border-radius:50%;font-size:.72rem;font-weight:700;display:flex;align-items:center;justify-content:center; }
+
+    /* CART DRAWER */
+    .cart-overlay { position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:600;opacity:0;pointer-events:none;transition:opacity .3s; }
+    .cart-overlay.open { opacity:1;pointer-events:all; }
+    .cart-drawer {
+      position:fixed;right:0;top:0;bottom:0;width:min(420px,100vw);z-index:700;
+      background:var(--bg2);border-left:1px solid rgba(200,148,42,.15);
+      display:flex;flex-direction:column;
+      transform:translateX(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+    }
+    .cart-drawer.open { transform:translateX(0); }
+    .drawer-head { padding:24px;border-bottom:1px solid rgba(200,148,42,.1);display:flex;align-items:center;justify-content:space-between; }
+    .drawer-head h3 { font-family:'Playfair Display',serif;color:var(--cream);font-size:1.4rem; }
+    .drawer-close { width:36px;height:36px;border-radius:50%;background:var(--bg3);border:none;color:var(--muted);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s; }
+    .drawer-close:hover { background:var(--gold);color:#fff; }
+    .drawer-body { flex:1;overflow-y:auto;padding:24px; }
+    .cart-item { display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid rgba(200,148,42,.07); }
+    .ci-emoji { width:44px;height:44px;border-radius:8px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0; }
+    .ci-name { font-weight:500;color:var(--cream);font-size:.9rem; }
+    .ci-price { font-size:.85rem;color:var(--gold-lt); }
+    .ci-remove { margin-left:auto;width:28px;height:28px;border-radius:50%;background:transparent;border:1px solid rgba(200,148,42,.2);color:var(--muted);cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0; }
+    .ci-remove:hover { background:#c0392b;border-color:#c0392b;color:#fff; }
+    .cart-empty { text-align:center;padding:60px 0;color:var(--muted); }
+    .cart-empty i { font-size:3rem;margin-bottom:16px;display:block;opacity:.4; }
+    .drawer-footer { padding:24px;border-top:1px solid rgba(200,148,42,.1); }
+    .subtotal-row { display:flex;justify-content:space-between;margin-bottom:8px;font-size:.9rem; }
+    .subtotal-row .label { color:var(--muted); }
+    .subtotal-row .val { color:var(--cream);font-weight:600; }
+    .total-row { display:flex;justify-content:space-between;margin:16px 0;font-size:1.1rem; }
+    .total-row .label { color:var(--cream);font-weight:700; }
+    .total-row .val { color:var(--gold-lt);font-weight:700; }
+    .checkout-btn { width:100%;padding:16px;border-radius:50px;background:var(--gold);color:#fff;font-weight:600;font-size:1rem;border:none;cursor:pointer;transition:background .2s,transform .2s; }
+    .checkout-btn:hover { background:var(--gold-lt);transform:translateY(-2px); }
+/* ── SCROLL PROGRESS ── */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,#c8942a,#e8b84b);z-index:1002;width:0%;transition:width .1s linear;pointer-events:none;}
+/* ── NAV LOGO ── */
+.nav-logo{display:flex!important;align-items:center;gap:10px;text-decoration:none;}
+.logo-mark{width:30px;height:28px;flex-shrink:0;overflow:visible;}
+.logo-wordmark{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:#eeddb0;letter-spacing:.04em;}
+.logo-wordmark .accent{color:#c8942a;}
+.lm-s1,.lm-s2,.lm-s3{animation:lmSteam 2.8s ease-in-out infinite;}
+.lm-s2{animation-delay:.6s;}
+.lm-s3{animation-delay:1.2s;}
+@keyframes lmSteam{0%,100%{opacity:.4;transform:translateY(0);}50%{opacity:.9;transform:translateY(-2.5px);}}
+/* ── NAVBAR SCROLL SHRINK ── */
+nav{transition:background .3s,box-shadow .3s;}
+nav.scrolled{background:rgba(8,5,3,.97)!important;box-shadow:0 4px 28px rgba(0,0,0,.35);}
+/* ── HAMBURGER ANIMATION ── */
+.hamburger span{transition:transform .3s ease,opacity .3s ease;}
+.hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px);}
+.hamburger.open span:nth-child(2){opacity:0;transform:translateX(10px);}
+.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px);}
+/* ── MOBILE MENU SLIDE-IN ── */
+.mobile-menu{display:flex!important;transform:translateX(100%);visibility:hidden;transition:transform .38s cubic-bezier(.4,0,.2,1),visibility .38s;width:min(300px,85vw);left:auto;right:0;border-left:1px solid rgba(200,148,42,.12);}
+.mobile-menu.open{transform:translateX(0);visibility:visible;}
+.mobile-overlay{position:fixed;inset:0;z-index:998;background:rgba(0,0,0,.55);opacity:0;pointer-events:none;transition:opacity .35s;}
+.mobile-overlay.open{opacity:1;pointer-events:all;}
+/* ── BUTTON RIPPLE ── */
+.btn-primary,.btn-outline{position:relative;overflow:hidden;}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.22);transform:scale(0);animation:rippleAnim .65s linear;pointer-events:none;}
+@keyframes rippleAnim{to{transform:scale(4);opacity:0;}}
+@media(max-width:768px){input,select,textarea{font-size:16px!important;}}
+  </style>
+</head>
+<body>
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+  <svg class="logo-mark" viewBox="0 0 62 55" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path class="lm-s1" d="M19,14 Q16,8 19,3" stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+    <path class="lm-s2" d="M28,12 Q25,6 28,1" stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+    <path class="lm-s3" d="M37,14 Q34,8 37,3" stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M8,17 L50,17 L50,40 Q50,44 46,44 L12,44 Q8,44 8,40 Z" fill="rgba(200,148,42,.07)" stroke="#c8942a" stroke-width="1.7" stroke-linejoin="round"/>
+    <path d="M50,22 Q60,22 60,30 Q60,38 50,38" fill="none" stroke="#c8942a" stroke-width="1.7" stroke-linecap="round"/>
+    <ellipse cx="29" cy="47.5" rx="21" ry="4" stroke="rgba(200,148,42,.75)" stroke-width="1.3"/>
+  </svg>
+  <span class="logo-wordmark">AURE<span class="accent">LIO</span></span>
+</a>
+    <ul class="nav-links">
+      <li><a href="index.html#process">Our Process</a></li>
+      <li><a href="menu.html" class="active">Menu</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#gallery">Gallery</a></li>
+      <li><a href="reserve.html">Reservations</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="order.html" class="btn-primary" style="padding:10px 22px;font-size:.85rem;"><i class="fa-solid fa-bag-shopping"></i> Order Now</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <div style="position:absolute;top:20px;right:20px;">
+    <button id="mobileClose" style="background:none;border:none;color:#7a6850;font-size:1.4rem;cursor:pointer;padding:8px;" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="reserve.html">Reserve</a>
+  <a href="order.html" class="btn-primary" style="margin-top:8px;"><i class="fa-solid fa-bag-shopping"></i> Order Now</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="section-label">Carefully Curated</span>
+  <h1>Our <em style="color:var(--gold);font-style:italic;">Menu</em></h1>
+  <p>From sunrise espresso to sunset small plates — every item crafted with intention.</p>
+</div>
+
+<!-- STICKY CATEGORY NAV -->
+<div class="menu-nav">
+  <div class="menu-nav-inner" id="catNav">
+    <button class="cat-btn active" data-cat="espresso">Espresso</button>
+    <button class="cat-btn" data-cat="filter">Filter Coffee</button>
+    <button class="cat-btn" data-cat="cold">Cold Drinks</button>
+    <button class="cat-btn" data-cat="breakfast">Breakfast</button>
+    <button class="cat-btn" data-cat="lunch">Lunch</button>
+    <button class="cat-btn" data-cat="dessert">Desserts</button>
+  </div>
+</div>
+
+<!-- MENU BODY -->
+<div class="menu-body">
+  <div class="container" id="menuContainer">
+    <!-- sections injected by JS -->
+  </div>
+</div>
+
+<!-- FLOATING CART BUTTON -->
+<button class="float-cart" id="cartBtn">
+  <i class="fa-solid fa-bag-shopping"></i>
+  <span class="cart-badge" id="cartCount">0</span>
+</button>
+
+<!-- CART OVERLAY + DRAWER -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="drawer-head">
+    <h3>Your Bag</h3>
+    <button class="drawer-close" id="drawerClose"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-footer" id="drawerFooter" style="display:none;">
+    <div class="subtotal-row"><span class="label">Subtotal</span><span class="val" id="subtotalVal">EGP 0</span></div>
+    <div class="subtotal-row"><span class="label">Delivery</span><span class="val">EGP 25</span></div>
+    <div class="total-row"><span class="label">Total</span><span class="val" id="totalVal">EGP 25</span></div>
+    <button class="checkout-btn" onclick="window.location.href='order.html'">Proceed to Checkout <i class="fa-solid fa-arrow-right"></i></button>
+  </div>
+</div>
+
+<script>
+/* ── HAMBURGER ── */
+function openMenu() {
+  document.getElementById('mobileMenu').classList.add('open');
+  document.getElementById('hamburger').classList.add('open');
+  document.getElementById('mobileOverlay').classList.add('open');
+}
+function closeMenuMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('open');
+}
+document.getElementById('hamburger').addEventListener('click', openMenu);
+document.getElementById('mobileOverlay').addEventListener('click', closeMenuMobile);
+document.getElementById('mobileClose').addEventListener('click', closeMenuMobile);
+
+/* ── MENU DATA ── */
+const MENU = {
+  espresso: {
+    label: '☕ Espresso Bar', items: [
+      { name:'Single Origin Espresso', desc:'A vibrant shot from our rotating single-origin bean, pulled to 28ml precision.', price:55, emoji:'☕', badges:['espresso','new'] },
+      { name:'Double Ristretto',       desc:'Concentrated intensity — 18g in, 28ml out, 25 seconds.',                         price:65, emoji:'☕', badges:['espresso'] },
+      { name:'Flat White',             desc:'Double ristretto, 130ml silky steamed whole milk, tulip latte art.',             price:75, emoji:'🥛', badges:['espresso','popular'] },
+      { name:'Cortado',                desc:'Equal parts espresso and warm milk — bold, balanced.',                            price:65, emoji:'🥛', badges:['espresso'] },
+      { name:'Cappuccino',             desc:'Classic dry cappuccino with a thick microfoam cap and dusted cocoa.',             price:70, emoji:'☕', badges:['espresso'] },
+      { name:'Oat Latte',              desc:'Double shot, 200ml Oatly barista oat milk, perfectly frothed.',                   price:80, emoji:'🌾', badges:['espresso','popular','vegan'] },
+    ]
+  },
+  filter: {
+    label: '🫗 Filter Coffee', items: [
+      { name:'Ethiopian Pour Over',    desc:'Yirgacheffe, light roast — jasmine, bergamot, boysenberry.',                      price:85, emoji:'🫗', badges:['filter','popular'] },
+      { name:'Colombian Chemex',       desc:'Huila region, medium roast — caramel, hazelnut, dried apricot.',                  price:85, emoji:'🫗', badges:['filter'] },
+      { name:'Aeropress',              desc:'Full immersion, 1:15 ratio — clean, rich, no bitterness.',                        price:75, emoji:'🫗', badges:['filter'] },
+      { name:'Cold Brew (12h)',         desc:'12-hour cold extraction, served over clear ice.',                                  price:75, emoji:'🧊', badges:['filter','cold'] },
+    ]
+  },
+  cold: {
+    label: '🧊 Cold Drinks', items: [
+      { name:'Iced Oat Flat White',    desc:'Double ristretto, oat milk, over hand-cut ice.',                                   price:80, emoji:'🥛', badges:['cold'] },
+      { name:'Sparkling Cold Brew',    desc:'Cold brew topped with sparkling water & a citrus peel.',                           price:75, emoji:'✨', badges:['cold','new'] },
+      { name:'Matcha Lemonade',        desc:'Ceremonial grade matcha, yuzu lemonade, fresh mint.',                             price:85, emoji:'🍵', badges:['cold','popular'] },
+      { name:'Rose Hibiscus Iced Tea', desc:'Cold-brewed hibiscus, rose water, honey, lemon slice.',                           price:70, emoji:'🌹', badges:['cold'] },
+    ]
+  },
+  breakfast: {
+    label: '🍳 Breakfast', items: [
+      { name:'Truffle Eggs Benedict',  desc:'Poached eggs, ibérico ham, hollandaise, black truffle on toasted brioche.',        price:195, emoji:'🍳', badges:['breakfast','popular'] },
+      { name:'Smashed Avocado Toast',  desc:'Sourdough, smashed hass avocado, dukkah, soft-boiled egg, chilli oil.',            price:135, emoji:'🥑', badges:['breakfast','vegan'] },
+      { name:'Ricotta Pancakes',       desc:'Thick Japanese-style, maple syrup, blueberry compote, crème fraîche.',            price:155, emoji:'🥞', badges:['breakfast'] },
+      { name:'Açaí Bowl',              desc:'Organic açaí, banana, granola, seasonal fruit, honey, chia seeds.',               price:120, emoji:'🍓', badges:['breakfast','vegan'] },
+      { name:'Full Aurelio',           desc:'Eggs your way, halloumi, mushrooms, roasted tomatoes, sourdough, beef bacon.',     price:175, emoji:'🍽️', badges:['breakfast','popular'] },
+    ]
+  },
+  lunch: {
+    label: '🥘 Lunch', items: [
+      { name:'Wagyu Burger',           desc:'180g Wagyu patty, aged cheddar, caramelised onion, truffle mayo, brioche.',        price:245, emoji:'🍔', badges:['lunch','popular'] },
+      { name:'Burrata & Heirloom',     desc:'Italian burrata, compressed heirloom tomatoes, basil oil, balsamic pearls.',      price:165, emoji:'🥗', badges:['lunch'] },
+      { name:'Pan-Seared Sea Bass',    desc:'Saffron butter, lemon caper beurre blanc, tenderstem broccoli.',                  price:265, emoji:'🐟', badges:['lunch'] },
+      { name:'Porcini Tagliatelle',    desc:'Hand-made pasta, 24-month Parmigiano, white truffle oil.',                        price:185, emoji:'🍝', badges:['lunch','vegetarian'] },
+      { name:'Cauliflower Steak',      desc:'Charred cauliflower, romesco, pomegranate, herb oil, toasted pine nuts.',         price:140, emoji:'🥦', badges:['lunch','vegan'] },
+    ]
+  },
+  dessert: {
+    label: '🍫 Desserts', items: [
+      { name:'Chocolate Fondant',      desc:'70% Valrhona, molten centre, salted caramel ice cream, praline crumble.',          price:120, emoji:'🍫', badges:['dessert','popular'] },
+      { name:'Tiramisu Classico',      desc:'Espresso-soaked ladyfingers, mascarpone mousse, dusted cocoa.',                   price:95,  emoji:'🍰', badges:['dessert'] },
+      { name:'Basque Burnt Cheesecake',desc:'Creamy centre, caramelised top, seasonal berry coulis.',                          price:110, emoji:'🧀', badges:['dessert','new'] },
+      { name:'Mango Panna Cotta',      desc:'Coconut milk panna cotta, fresh mango, passion fruit, micro herbs.',              price:100, emoji:'🥭', badges:['dessert','vegan'] },
+    ]
+  }
+};
+
+/* ── CART STATE ── */
+let cart = JSON.parse(localStorage.getItem('aurelio_cart') || '[]');
+
+function saveCart() { localStorage.setItem('aurelio_cart', JSON.stringify(cart)); }
+
+function updateCartUI() {
+  const count = cart.length;
+  document.getElementById('cartCount').textContent = count;
+  renderDrawer();
+}
+
+function addItem(name, price, emoji) {
+  cart.push({ name, price, emoji });
+  saveCart(); updateCartUI(); showToast(name + ' added to bag');
+}
+
+function removeItem(idx) { cart.splice(idx, 1); saveCart(); updateCartUI(); }
+
+function renderDrawer() {
+  const body = document.getElementById('drawerBody');
+  const footer = document.getElementById('drawerFooter');
+  if (cart.length === 0) {
+    body.innerHTML = '<div class="cart-empty"><i class="fa-solid fa-bag-shopping"></i><p>Your bag is empty</p></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  body.innerHTML = cart.map((item, i) => `
+    <div class="cart-item">
+      <div class="ci-emoji">${item.emoji}</div>
+      <div><div class="ci-name">${item.name}</div><div class="ci-price">EGP ${item.price}</div></div>
+      <button class="ci-remove" onclick="removeItem(${i})"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  `).join('');
+  footer.style.display = 'block';
+  const sub = cart.reduce((s,i) => s + i.price, 0);
+  document.getElementById('subtotalVal').textContent = 'EGP ' + sub;
+  document.getElementById('totalVal').textContent = 'EGP ' + (sub + 25);
+}
+
+/* ── RENDER MENU ── */
+function renderMenu(activeCat) {
+  const container = document.getElementById('menuContainer');
+  const cats = activeCat === 'all' ? Object.keys(MENU) : [activeCat];
+  container.innerHTML = cats.map(cat => {
+    const section = MENU[cat];
+    return `
+      <div class="menu-section reveal" id="sec-${cat}">
+        <div class="menu-section-head">
+          <h2>${section.label}</h2>
+          <div class="line"></div>
+        </div>
+        <div class="items-grid">
+          ${section.items.map(item => `
+            <div class="item-card">
+              <div class="item-emoji">${item.emoji}</div>
+              <div class="item-body">
+                <div class="item-badges">
+                  ${item.badges.map(b => `<span class="badge badge-cat">${b}</span>`).join('')}
+                  ${item.badges.includes('popular') ? '<span class="badge badge-pop">Popular</span>' : ''}
+                  ${item.badges.includes('new') ? '<span class="badge badge-new">New</span>' : ''}
+                </div>
+                <div class="item-name">${item.name}</div>
+                <p class="item-desc">${item.desc}</p>
+                <div class="item-footer">
+                  <span class="item-price">EGP ${item.price}</span>
+                  <button class="add-btn" onclick="addItem('${item.name.replace(/'/g,'&#39;')}',${item.price},'${item.emoji}')">
+                    <i class="fa-solid fa-plus"></i> Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+  // re-run reveal observer
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+}
+
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+}, { threshold: 0.08 });
+
+/* ── CAT NAV ── */
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderMenu(btn.dataset.cat);
+    // scroll to menu body
+    document.querySelector('.menu-body').scrollIntoView({ behavior: 'smooth' });
+  });
+});
+renderMenu('espresso');
+
+/* ── CART DRAWER ── */
+const cartBtn = document.getElementById('cartBtn');
+const cartOverlay = document.getElementById('cartOverlay');
+const cartDrawer = document.getElementById('cartDrawer');
+const drawerClose = document.getElementById('drawerClose');
+
+function openCart() { cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); }
+function closeCart() { cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); }
+
+cartBtn.addEventListener('click', openCart);
+cartOverlay.addEventListener('click', closeCart);
+drawerClose.addEventListener('click', closeCart);
+
+/* ── TOAST ── */
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;padding:12px 28px;border-radius:50px;font-weight:600;font-size:.9rem;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;';
+    document.body.appendChild(t);
+  }
+  t.textContent = '🛍️ ' + msg;
+  t.style.opacity = 1;
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.opacity = 0; }, 2200);
+}
+
+updateCartUI();
+
+/* ── SCROLL PROGRESS + NAVBAR ── */
+window.addEventListener('scroll', () => {
+  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  document.getElementById('scrollProgress').style.width = (p * 100) + '%';
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+/* ── BUTTON RIPPLE ── */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.btn-primary,.btn-outline');
+  if (!btn) return;
+  const r = document.createElement('span');
+  r.className = 'ripple';
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(btn.offsetWidth, btn.offsetHeight);
+  r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
+  btn.appendChild(r);
+  r.addEventListener('animationend', () => r.remove());
+});
+</script>
+</body>
+</html>
