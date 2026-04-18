@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserve a Table — AURELIO Coffee & Bistro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:#080503; --bg2:#110b06; --bg3:#1c130b;
+      --gold:#c8942a; --gold-lt:#e8b84b; --cream:#eeddb0;
+      --text:#ddc9a0; --muted:#7a6850; --green:#3a6645;
+      --nav-h:72px; --r:12px; --success:#3d9970;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+    h1,h2,h3 { font-family: 'Playfair Display', serif; }
+    p { line-height: 1.7; color: var(--muted); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .section-label { font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:block; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);} }
+    @keyframes spinSlow { from{transform:rotate(0deg);}to{transform:rotate(360deg);} }
+    @keyframes checkPop { 0%{transform:scale(0);}60%{transform:scale(1.2);}100%{transform:scale(1);} }
+    @keyframes floatA { 0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);} }
+    @keyframes blobPulse { 0%,100%{opacity:1;}50%{opacity:.7;} }
+    .reveal { opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1;transform:translateY(0); }
+    .reveal-d1{transition-delay:.1s;}.reveal-d2{transition-delay:.2s;}
+
+    /* NAVBAR */
+    nav { position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;background:rgba(8,5,3,.85);backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,148,42,.12); }
+    nav .nav-inner { width:100%;max-width:1200px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between; }
+    .nav-logo { font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--cream);letter-spacing:.04em;text-decoration:none; }
+    .nav-logo span { color:var(--gold); }
+    .nav-links { display:flex;align-items:center;gap:36px;list-style:none; }
+    .nav-links a { color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s; }
+    .nav-links a:hover,.nav-links a.active { color:var(--cream); }
+    .nav-cta { display:flex;gap:12px; }
+    .btn-primary { display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;font-weight:600;padding:14px 32px;border-radius:50px;text-decoration:none;border:none;cursor:pointer;font-size:.95rem;transition:all .2s; }
+    .btn-primary:hover { background:var(--gold-lt);transform:translateY(-2px); }
+    .btn-outline { display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--cream);font-weight:500;padding:13px 30px;border-radius:50px;text-decoration:none;border:1.5px solid rgba(238,221,176,.35);cursor:pointer;font-size:.95rem;transition:all .2s; }
+    .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--cream);border-radius:2px;}
+    .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:rgba(8,5,3,.97);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:32px;}
+    .mobile-menu.open{display:flex;}
+    .mobile-menu a{font-family:'Playfair Display',serif;font-size:2rem;color:var(--cream);text-decoration:none;}
+    @media(max-width:768px){.nav-links,.nav-cta{display:none;}.hamburger{display:flex;}}
+
+    /* PAGE HERO */
+    .page-hero {
+      padding: calc(var(--nav-h) + 80px) 0 80px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,148,42,.07) 0%, transparent 60%), var(--bg2);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .page-hero::after { content:'RESERVE';position:absolute;bottom:0;left:50%;transform:translateX(-50%);font-family:'Playfair Display',serif;font-size:clamp(3rem,12vw,10rem);font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(200,148,42,.06);pointer-events:none;line-height:1;white-space:nowrap; }
+    .page-hero h1 { font-size:clamp(2.5rem,6vw,5rem);color:var(--cream);margin-bottom:12px;position:relative;z-index:1; }
+    .page-hero p { max-width:500px;margin:0 auto;position:relative;z-index:1; }
+
+    /* MAIN LAYOUT */
+    .reserve-wrap { padding: 80px 0 120px; }
+    .reserve-layout { display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start; }
+    @media(max-width:900px){.reserve-layout{grid-template-columns:1fr;}}
+
+    /* FORM CARD */
+    .form-card { background:var(--bg2);border:1px solid rgba(200,148,42,.12);border-radius:var(--r);overflow:hidden; }
+    .form-card-head { padding:24px;border-bottom:1px solid rgba(200,148,42,.08); }
+    .form-card-head h2 { font-family:'Playfair Display',serif;color:var(--cream);font-size:1.6rem; }
+    .form-card-head p { margin-top:6px; }
+    .form-card-body { padding:32px; }
+    .form-row { display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px; }
+    .form-row.full { grid-template-columns:1fr; }
+    .form-group { display:flex;flex-direction:column;gap:6px; }
+    .form-group label { font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted); }
+    .form-group input, .form-group select, .form-group textarea {
+      background:var(--bg3);border:1px solid rgba(200,148,42,.18);border-radius:8px;
+      color:var(--cream);font-family:'Inter',sans-serif;font-size:.95rem;padding:13px 16px;outline:none;
+      transition:border-color .2s;-webkit-appearance:none;
+    }
+    .form-group select { background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23c8942a' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;padding-right:40px; }
+    .form-group input:focus, .form-group select:focus { border-color:var(--gold); }
+    .form-group textarea { resize:vertical;min-height:100px; }
+    @media(max-width:600px){.form-row{grid-template-columns:1fr;}}
+
+    /* TIME SLOTS */
+    .slots-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:4px; }
+    .slot-btn {
+      padding:10px 6px;border-radius:8px;background:var(--bg3);border:1px solid rgba(200,148,42,.15);
+      color:var(--muted);font-family:'Inter',sans-serif;font-size:.82rem;font-weight:500;
+      cursor:pointer;transition:all .2s;text-align:center;
+    }
+    .slot-btn:hover { border-color:var(--gold);color:var(--cream); }
+    .slot-btn.selected { background:rgba(200,148,42,.15);border-color:var(--gold);color:var(--cream);font-weight:600; }
+    .slot-btn.unavailable { opacity:.35;cursor:not-allowed;text-decoration:line-through; }
+    @media(max-width:400px){.slots-grid{grid-template-columns:repeat(3,1fr);}}
+
+    /* GUEST PICKER */
+    .guest-picker { display:flex;align-items:center;gap:16px; }
+    .gp-btn { width:38px;height:38px;border-radius:50%;background:var(--bg3);border:1px solid rgba(200,148,42,.2);color:var(--text);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s; }
+    .gp-btn:hover { background:var(--gold);color:#fff;border-color:var(--gold); }
+    .gp-count { font-size:1.4rem;font-weight:700;color:var(--cream);min-width:32px;text-align:center; }
+
+    /* OCCASION PILLS */
+    .occasion-pills { display:flex;flex-wrap:wrap;gap:8px;margin-top:4px; }
+    .occ-pill { padding:8px 16px;border-radius:50px;background:var(--bg3);border:1px solid rgba(200,148,42,.15);color:var(--muted);font-size:.84rem;cursor:pointer;transition:all .2s; }
+    .occ-pill:hover { border-color:var(--gold);color:var(--cream); }
+    .occ-pill.selected { background:rgba(200,148,42,.15);border-color:var(--gold);color:var(--cream);font-weight:600; }
+
+    /* SUBMIT BTN */
+    .submit-btn { width:100%;padding:18px;border-radius:50px;background:var(--gold);color:#fff;font-weight:700;font-size:1rem;border:none;cursor:pointer;margin-top:28px;transition:all .2s;letter-spacing:.04em; }
+    .submit-btn:hover { background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 28px rgba(200,148,42,.4); }
+
+    /* SIDEBAR */
+    .sidebar { position:sticky;top:calc(var(--nav-h) + 24px);display:flex;flex-direction:column;gap:20px; }
+    .side-card { background:var(--bg2);border:1px solid rgba(200,148,42,.1);border-radius:var(--r);padding:24px; }
+    .side-card h4 { font-family:'Playfair Display',serif;color:var(--cream);font-size:1.1rem;margin-bottom:16px; }
+    .hours-row { display:flex;justify-content:space-between;padding:8px 0;font-size:.88rem;border-bottom:1px solid rgba(200,148,42,.06); }
+    .hours-row:last-child{border-bottom:none;}
+    .hours-row .day { color:var(--muted); }
+    .hours-row .time { color:var(--cream);font-weight:500; }
+    .info-item { display:flex;align-items:flex-start;gap:12px;margin-bottom:16px; }
+    .info-item:last-child{margin-bottom:0;}
+    .info-icon { width:36px;height:36px;border-radius:50%;background:rgba(200,148,42,.1);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.9rem;flex-shrink:0; }
+    .info-text .title { font-weight:600;color:var(--cream);font-size:.9rem;margin-bottom:2px; }
+    .info-text .sub { font-size:.82rem;color:var(--muted); }
+    /* Map placeholder */
+    .map-ph {
+      background:var(--bg3);border-radius:10px;height:180px;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      font-size:3rem;gap:8px;border:1px solid rgba(200,148,42,.1);
+    }
+    .map-ph span { font-size:.85rem;color:var(--muted); }
+
+    /* SUCCESS MODAL */
+    .modal-backdrop { display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:2000;align-items:center;justify-content:center;padding:24px; }
+    .modal-backdrop.show { display:flex; }
+    .modal { background:var(--bg2);border:1px solid rgba(200,148,42,.2);border-radius:20px;max-width:460px;width:100%;padding:40px;text-align:center; }
+    .modal .check-ring { width:90px;height:90px;border-radius:50%;border:3px solid var(--success);display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:var(--success);margin:0 auto 24px;animation:checkPop .5s cubic-bezier(.17,.67,.31,1.37) both; }
+    .modal h2 { font-family:'Playfair Display',serif;font-size:2rem;color:var(--cream);margin-bottom:10px; }
+    .modal p { color:var(--muted);margin-bottom:24px; }
+    .booking-card { background:var(--bg3);border:1px solid rgba(200,148,42,.15);border-radius:12px;padding:20px;margin-bottom:24px;text-align:left; }
+    .bc-row { display:flex;justify-content:space-between;padding:6px 0;font-size:.88rem; }
+    .bc-row .k { color:var(--muted); }
+    .bc-row .v { color:var(--cream);font-weight:600; }
+    .modal-actions { display:flex;gap:12px;justify-content:center;flex-wrap:wrap; }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">AURE<span>LIO</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="reserve.html" class="active">Reservations</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="order.html" class="btn-primary" style="padding:10px 22px;font-size:.85rem;"><i class="fa-solid fa-bag-shopping"></i> Order Now</a>
+    </div>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="reserve.html">Reserve</a>
+  <a href="order.html" class="btn-primary">Order Now</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <span class="section-label">Book Your Experience</span>
+  <h1>Reserve a <em style="color:var(--gold);font-style:italic;">Table</em></h1>
+  <p>Secure your spot for an unforgettable dining experience. We'll have everything ready for your arrival.</p>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="reserve-wrap">
+  <div class="container">
+    <div class="reserve-layout">
+
+      <!-- RESERVATION FORM -->
+      <div>
+        <div class="form-card reveal">
+          <div class="form-card-head">
+            <h2>Make a Reservation</h2>
+            <p>All fields marked with * are required.</p>
+          </div>
+          <div class="form-card-body">
+
+            <!-- Date & Time -->
+            <div style="margin-bottom:24px;">
+              <div style="font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">📅 Date & Time</div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Date *</label>
+                  <input type="date" id="resDate" min="" onchange="updateSlots()" />
+                </div>
+                <div class="form-group">
+                  <label>Number of Guests *</label>
+                  <div class="guest-picker">
+                    <button class="gp-btn" onclick="changeGuests(-1)"><i class="fa-solid fa-minus"></i></button>
+                    <span class="gp-count" id="guestCount">2</span>
+                    <button class="gp-btn" onclick="changeGuests(1)"><i class="fa-solid fa-plus"></i></button>
+                    <span style="font-size:.8rem;color:var(--muted);">guests</span>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <label>Available Time Slots *</label>
+                <div class="slots-grid" id="slotsGrid"></div>
+              </div>
+            </div>
+
+            <!-- Personal Info -->
+            <div style="margin-bottom:24px;">
+              <div style="font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">👤 Your Details</div>
+              <div class="form-row">
+                <div class="form-group"><label>First Name *</label><input type="text" id="fname" placeholder="Ahmed" /></div>
+                <div class="form-group"><label>Last Name *</label><input type="text" id="lname" placeholder="El-Amin" /></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label>Phone *</label><input type="tel" id="phone" placeholder="+20 100 000 0000" /></div>
+                <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="ahmed@email.com" /></div>
+              </div>
+            </div>
+
+            <!-- Occasion -->
+            <div style="margin-bottom:24px;">
+              <div style="font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;">🎉 Occasion (optional)</div>
+              <div class="occasion-pills" id="occasionPills">
+                <div class="occ-pill" onclick="selectOccasion(this)">Birthday 🎂</div>
+                <div class="occ-pill" onclick="selectOccasion(this)">Anniversary 💍</div>
+                <div class="occ-pill" onclick="selectOccasion(this)">Business Lunch 💼</div>
+                <div class="occ-pill" onclick="selectOccasion(this)">Date Night 🌹</div>
+                <div class="occ-pill" onclick="selectOccasion(this)">Celebration 🥂</div>
+                <div class="occ-pill" onclick="selectOccasion(this)">Just Coffee ☕</div>
+              </div>
+            </div>
+
+            <!-- Special Requests -->
+            <div class="form-row full" style="margin-bottom:0;">
+              <div class="form-group">
+                <label>Special Requests</label>
+                <textarea id="requests" placeholder="Dietary needs, seating preferences, allergies, candles on the table…"></textarea>
+              </div>
+            </div>
+
+            <button class="submit-btn" id="submitBtn" onclick="submitReservation()">
+              <i class="fa-regular fa-calendar-check"></i> Confirm Reservation
+            </button>
+
+            <div style="text-align:center;margin-top:16px;font-size:.8rem;color:var(--muted);">
+              <i class="fa-solid fa-shield-halved" style="color:var(--gold);margin-right:4px;"></i>
+              Your details are kept private and never shared.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <!-- Location -->
+        <div class="side-card reveal reveal-d1">
+          <h4><i class="fa-solid fa-location-dot" style="color:var(--gold);margin-right:8px;"></i>Find Us</h4>
+          <div class="map-ph">📍<span>12 Corniche El-Nil, Garden City</span></div>
+          <div class="info-item" style="margin-top:16px;">
+            <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="info-text"><div class="title">Main Branch</div><div class="sub">12 Corniche El-Nil, Garden City, Cairo</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+            <div class="info-text"><div class="title">Reservations</div><div class="sub">+20 100 123 4567</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fa-brands fa-whatsapp"></i></div>
+            <div class="info-text"><div class="title">WhatsApp</div><div class="sub">Quick responses on WhatsApp</div></div>
+          </div>
+        </div>
+
+        <!-- Opening Hours -->
+        <div class="side-card reveal reveal-d2">
+          <h4><i class="fa-regular fa-clock" style="color:var(--gold);margin-right:8px;"></i>Opening Hours</h4>
+          <div class="hours-row"><span class="day">Monday – Thursday</span><span class="time">7:00 AM – 10:00 PM</span></div>
+          <div class="hours-row"><span class="day">Friday – Saturday</span><span class="time">8:00 AM – 11:00 PM</span></div>
+          <div class="hours-row"><span class="day">Sunday</span><span class="time">8:00 AM – 10:00 PM</span></div>
+          <div class="hours-row"><span class="day">Kitchen closes</span><span class="time">9:30 PM daily</span></div>
+        </div>
+
+        <!-- Dining Policy -->
+        <div class="side-card reveal reveal-d2">
+          <h4><i class="fa-solid fa-circle-info" style="color:var(--gold);margin-right:8px;"></i>Dining Policy</h4>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:.86rem;color:var(--muted);line-height:1.6;">
+            <div><i class="fa-solid fa-check" style="color:var(--success);margin-right:6px;"></i>Tables held for 15 minutes past reservation time</div>
+            <div><i class="fa-solid fa-check" style="color:var(--success);margin-right:6px;"></i>Cancellations accepted up to 2 hours before</div>
+            <div><i class="fa-solid fa-check" style="color:var(--success);margin-right:6px;"></i>Private dining available for 8+ guests</div>
+            <div><i class="fa-solid fa-check" style="color:var(--success);margin-right:6px;"></i>Valet parking available at the entrance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="check-ring"><i class="fa-solid fa-check"></i></div>
+    <h2>You're Booked! 🎉</h2>
+    <p>Your reservation is confirmed. We're looking forward to welcoming you to Aurelio.</p>
+    <div class="booking-card" id="bookingCard"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="closeModal()"><i class="fa-solid fa-check"></i> Done</button>
+      <a href="menu.html" class="btn-outline"><i class="fa-solid fa-utensils"></i> Browse Menu</a>
+    </div>
+  </div>
+</div>
+
+<script>
+/* HAMBURGER */
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileMenu').classList.toggle('open'));
+
+/* DATE MIN */
+const today = new Date();
+const pad = n => String(n).padStart(2, '0');
+const minDate = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+document.getElementById('resDate').min = minDate;
+document.getElementById('resDate').value = minDate;
+
+/* GUESTS */
+let guests = 2;
+function changeGuests(d) {
+  guests = Math.max(1, Math.min(12, guests + d));
+  document.getElementById('guestCount').textContent = guests;
+}
+
+/* TIME SLOTS */
+const allSlots = ['07:00','07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00','12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00'];
+const unavailableSlots = ['09:00','12:30','14:00','19:30','20:00'];
+let selectedSlot = '';
+
+function updateSlots() {
+  const grid = document.getElementById('slotsGrid');
+  grid.innerHTML = allSlots.map(slot => {
+    const unavail = unavailableSlots.includes(slot);
+    return `<button class="slot-btn${unavail ? ' unavailable' : ''}${selectedSlot === slot ? ' selected' : ''}" onclick="${unavail ? '' : `selectSlot('${slot}',this)`}">${slot}</button>`;
+  }).join('');
+}
+
+function selectSlot(slot, btn) {
+  selectedSlot = slot;
+  document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+updateSlots();
+
+/* OCCASION */
+function selectOccasion(el) {
+  document.querySelectorAll('.occ-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.toggle('selected');
+}
+
+/* SUBMIT */
+function submitReservation() {
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const date  = document.getElementById('resDate').value;
+
+  if (!fname || !lname || !phone || !date || !selectedSlot) {
+    alert('Please fill in your name, phone, date, and select a time slot.');
+    return;
+  }
+
+  const occ = document.querySelector('.occ-pill.selected')?.textContent || 'Dining Experience';
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Confirming…';
+
+  setTimeout(() => {
+    const bookingId = 'RES-' + Math.random().toString(36).substring(2,8).toUpperCase();
+    const dateObj = new Date(date + 'T00:00:00');
+    const dateStr = dateObj.toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+    document.getElementById('bookingCard').innerHTML = `
+      <div class="bc-row"><span class="k">Booking Ref</span><span class="v" style="color:var(--gold);">${bookingId}</span></div>
+      <div class="bc-row"><span class="k">Name</span><span class="v">${fname} ${lname}</span></div>
+      <div class="bc-row"><span class="k">Date</span><span class="v">${dateStr}</span></div>
+      <div class="bc-row"><span class="k">Time</span><span class="v">${selectedSlot}</span></div>
+      <div class="bc-row"><span class="k">Guests</span><span class="v">${guests} ${guests === 1 ? 'guest' : 'guests'}</span></div>
+      <div class="bc-row"><span class="k">Occasion</span><span class="v">${occ}</span></div>
+    `;
+    document.getElementById('modal').classList.add('show');
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-regular fa-calendar-check"></i> Confirm Reservation';
+  }, 1400);
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+  // Reset form
+  document.getElementById('fname').value = '';
+  document.getElementById('lname').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('email').value = '';
+  document.getElementById('requests').value = '';
+  document.querySelectorAll('.occ-pill').forEach(p => p.classList.remove('selected'));
+  selectedSlot = '';
+  updateSlots();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Close modal on backdrop click
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+
+/* SCROLL REVEAL */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
