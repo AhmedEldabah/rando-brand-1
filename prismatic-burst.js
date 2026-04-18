@@ -112,7 +112,7 @@ void main() {
     hoverMat = rotY(m.x * 0.6) * rotX(m.y * 0.6);
   }
 
-  for (int i = 0; i < 24; ++i) {
+  for (int i = 0; i < 16; ++i) {
     vec3 P = marchT * dir;
     P.z -= 2.0;
     float rad = length(P);
@@ -384,54 +384,6 @@ void main() {
     if (this.canvas && this.canvas.parentNode) this.canvas.parentNode.removeChild(this.canvas);
   };
 
-  /* ── Cursor Trail ── */
-  function initCursorTrail(colorA, colorB) {
-    colorA = colorA || '#FFB300';
-    colorB = colorB || '#7C4DFF';
-    var dots = [];
-    var TRAIL = 18;
-    var mouse = { x: -200, y: -200 };
-    var container = document.createElement('div');
-    container.id = 'cursorTrail';
-    container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:99999;overflow:hidden;';
-    document.body.appendChild(container);
-    for (var i = 0; i < TRAIL; i++) {
-      var d = document.createElement('div');
-      var t = i / (TRAIL - 1);
-      var size = 14 - t * 10;
-      /* interpolate color */
-      var ra = parseInt(colorA.slice(1,3),16), ga = parseInt(colorA.slice(3,5),16), ba = parseInt(colorA.slice(5,7),16);
-      var rb = parseInt(colorB.slice(1,3),16), gb = parseInt(colorB.slice(3,5),16), bb = parseInt(colorB.slice(5,7),16);
-      var r = Math.round(ra + (rb-ra)*t), g = Math.round(ga + (gb-ga)*t), b = Math.round(ba + (bb-ba)*t);
-      d.style.cssText = 'position:fixed;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);transition:width .1s,height .1s;will-change:transform,opacity;';
-      d.style.width  = size + 'px';
-      d.style.height = size + 'px';
-      d.style.background = 'rgba(' + r + ',' + g + ',' + b + ',' + (1 - t * 0.85) + ')';
-      d.style.boxShadow = '0 0 ' + (size*2) + 'px rgba(' + r + ',' + g + ',' + b + ',0.6)';
-      d.style.left = '-200px';
-      d.style.top  = '-200px';
-      container.appendChild(d);
-      dots.push({ el: d, x: -200, y: -200 });
-    }
-    document.addEventListener('pointermove', function (e) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    }, { passive: true });
-    (function animate() {
-      var px = mouse.x, py = mouse.y;
-      for (var i = 0; i < dots.length; i++) {
-        var prev = i === 0 ? { x: px, y: py } : dots[i-1];
-        var speed = i === 0 ? 0.35 : 0.22;
-        dots[i].x += (prev.x - dots[i].x) * speed;
-        dots[i].y += (prev.y - dots[i].y) * speed;
-        dots[i].el.style.left = dots[i].x + 'px';
-        dots[i].el.style.top  = dots[i].y + 'px';
-      }
-      requestAnimationFrame(animate);
-    })();
-  }
-
   global.PrismaticBurst = PrismaticBurst;
-  global.initCursorTrail = initCursorTrail;
 
 }(typeof window !== 'undefined' ? window : this));
