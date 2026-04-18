@@ -17,7 +17,7 @@
       --nav-h:72px; --r:12px; --success:#00E5FF;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; cursor: none; }
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,var(--gold),var(--hot)); border-radius: 3px; }
     h1,h2,h3 { font-family: 'Playfair Display', serif; }
@@ -174,7 +174,6 @@ nav.scrolled{background:rgba(8,8,12,.97)!important;box-shadow:0 4px 28px rgba(0,
 /* ── LIGHT MODE ── */
 [data-theme="light"]{--bg:#F5F2ED;--bg2:#FDFAF5;--bg3:#EDE8DF;--text:#1c1820;--muted:#6b6480;--cream:#1c1820;}
 [data-theme="light"] body{cursor:auto;}
-[data-theme="light"] #cursorTrail{display:none;}
 [data-theme="light"] nav{background:rgba(245,242,237,.92)!important;border-bottom-color:rgba(255,179,0,.3);}
 [data-theme="light"] .hamburger span{background:var(--text);}
 [data-theme="light"] .mobile-menu{background:rgba(245,242,237,.98)!important;}
@@ -640,7 +639,6 @@ document.addEventListener('click', e => {
 <script src="prismatic-burst.js"></script>
 <script>
 if (!('ontouchstart' in window) && !window.matchMedia('(hover: none)').matches) {
-  initCursorTrail('#FFB300', '#7C4DFF');
 }
 (function() {
   function applyTheme(t) {
