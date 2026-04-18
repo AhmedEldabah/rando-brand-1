@@ -29,7 +29,17 @@
       --r:         12px;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; cursor: none; }
+    body {
+      background:
+        radial-gradient(ellipse 80% 60% at 15% 15%, rgba(124,77,255,.13) 0%, transparent 55%),
+        radial-gradient(ellipse 70% 50% at 85% 25%, rgba(255,64,129,.09) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 60% at 40% 65%, rgba(255,179,0,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 50% at 75% 85%, rgba(0,229,255,.05) 0%, transparent 55%),
+        var(--bg);
+      background-attachment: fixed;
+      background-size: cover;
+      color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; cursor: none;
+    }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: linear-gradient(180deg,var(--gold),var(--hot)); border-radius: 3px; }
@@ -238,7 +248,7 @@
     .process-progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--hot)); border-radius: 2px; width: 0%; transition: width .05s linear; }
 
     /* ── MENU PREVIEW ── */
-    .menu-preview { padding: 120px 0; background: var(--bg); position: relative; overflow: hidden; }
+    .menu-preview { padding: 120px 0; background: transparent; position: relative; overflow: hidden; }
     .section-head { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 64px; }
     .section-head h2 { color: var(--cream); margin-bottom: 16px; }
     .divider { width: 80px; height: 3px; background: linear-gradient(90deg, transparent, var(--gold), var(--hot), transparent); margin: 16px auto; border-radius: 2px; }
@@ -268,7 +278,7 @@
     .view-all-wrap { text-align: center; margin-top: 48px; }
 
     /* ── ABOUT ── */
-    .about { padding: 120px 0; background: var(--bg2); position: relative; overflow: hidden; }
+    .about { padding: 120px 0; background: transparent; position: relative; overflow: hidden; }
     .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
     .about-img-wrap { position: relative; }
     .about-img-frame {
@@ -299,7 +309,7 @@
     @media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; gap: 40px; } }
 
     /* ── GALLERY ── */
-    .gallery { padding: 120px 0; background: var(--bg); overflow: hidden; position: relative; }
+    .gallery { padding: 120px 0; background: transparent; overflow: hidden; position: relative; }
     .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: auto; gap: 12px; margin-top: 48px; }
     .gallery-cell { border-radius: var(--r); overflow: hidden; background: var(--bg3); transition: transform .3s, box-shadow .3s; cursor: pointer; border: 1px solid rgba(255,179,0,.06); }
     .gallery-cell:hover { transform: scale(1.03); z-index: 1; position: relative; box-shadow: 0 12px 48px rgba(255,64,129,.2), 0 0 0 1px rgba(255,179,0,.2); }
@@ -309,7 +319,7 @@
     @media (max-width: 600px) { .gallery-grid { grid-template-columns: 1fr 1fr; } .gallery-cell.wide { grid-column: span 1; } }
 
     /* ── TESTIMONIALS ── */
-    .testimonials { padding: 120px 0; background: var(--bg2); position: relative; overflow: hidden; }
+    .testimonials { padding: 120px 0; background: transparent; position: relative; overflow: hidden; }
     .testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
     .testi-card { background: var(--bg3); border: 1px solid rgba(255,179,0,.1); border-radius: var(--r); padding: 32px; transition: border-color .25s, box-shadow .3s, transform .3s; }
     .testi-card:hover { border-color: rgba(255,179,0,.35); box-shadow: 0 12px 40px rgba(124,77,255,.2); transform: translateY(-4px); }
@@ -322,7 +332,7 @@
 
     /* ── CTA SECTION ── */
     .cta-section {
-      padding: 120px 24px; background: var(--bg);
+      padding: 120px 24px; background: transparent;
       position: relative; overflow: hidden; text-align: center;
     }
     .cta-section::before {
@@ -335,7 +345,7 @@
     .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
 
     /* ── FOOTER ── */
-    footer { background: var(--bg2); border-top: 1px solid rgba(255,179,0,.12); padding: 80px 0 32px; position: relative; overflow: hidden; }
+    footer { background: transparent; border-top: 1px solid rgba(255,179,0,.12); padding: 80px 0 32px; position: relative; overflow: hidden; }
     .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; }
     .footer-brand .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--cream); margin-bottom: 12px; }
     .footer-brand .logo span { background: linear-gradient(90deg,var(--gold),var(--hot)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
@@ -473,10 +483,7 @@
     [data-theme="light"] .process-sticky { background: var(--bg2); }
     [data-theme="light"] .center-node { background: radial-gradient(circle, rgba(255,179,0,.15) 0%, rgba(124,77,255,.08) 70%); }
     [data-theme="light"] .sat-node { background: rgba(245,242,237,.95); border-color: rgba(255,179,0,.4); }
-    [data-theme="light"] .about { background: var(--bg2); }
     [data-theme="light"] .about-img-frame { background: linear-gradient(135deg, var(--bg3) 0%, #ddd6c8 100%); }
-    [data-theme="light"] .testimonials { background: var(--bg2); }
-    [data-theme="light"] footer { background: var(--bg3); border-top-color: rgba(255,179,0,.2); }
     [data-theme="light"] .footer-bottom { border-top-color: rgba(255,179,0,.12); }
     [data-theme="light"] .scroll-progress { background: linear-gradient(90deg, var(--gold), var(--hot)); }
 
@@ -689,7 +696,6 @@
     <div class="section-head reveal">
       <span class="section-label">Carefully Curated</span>
       <h2 style="color:var(--cream);">Our Signature <em style="background:linear-gradient(135deg,var(--gold),var(--hot));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;">Offerings</em></h2>
-      <div class="divider"></div>
       <p>Each item is crafted with seasonal ingredients and obsessive attention to detail.</p>
     </div>
     <div class="menu-tabs reveal">
@@ -742,7 +748,6 @@
     <div class="section-head reveal">
       <span class="section-label">Visual Journey</span>
       <h2 style="color:var(--cream);">Step Inside <em style="background:linear-gradient(135deg,var(--gold),var(--hot));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;">Noir</em></h2>
-      <div class="divider"></div>
     </div>
     <div class="gallery-grid">
       <div class="gallery-cell tall"><div class="gallery-img-ph" style="background:linear-gradient(135deg,rgba(255,179,0,.12),rgba(255,64,129,.08),rgba(14,14,24,1));color:rgba(255,179,0,.5);font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;">N</div></div>
@@ -761,7 +766,6 @@
     <div class="section-head reveal">
       <span class="section-label">Guest Voices</span>
       <h2 style="color:var(--cream);">What People <em style="background:linear-gradient(135deg,var(--gold),var(--hot));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-style:italic;">Say</em></h2>
-      <div class="divider"></div>
     </div>
     <div class="testi-grid">
       <div class="testi-card reveal">
