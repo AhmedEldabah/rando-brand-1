@@ -112,7 +112,7 @@ void main() {
     hoverMat = rotY(m.x * 0.6) * rotX(m.y * 0.6);
   }
 
-  for (int i = 0; i < 44; ++i) {
+  for (int i = 0; i < 24; ++i) {
     vec3 P = marchT * dir;
     P.z -= 2.0;
     float rad = length(P);
@@ -210,7 +210,7 @@ void main() {
   }
 
   PrismaticBurst.prototype._init = function () {
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     this.dpr = dpr;
 
     var canvas = document.createElement('canvas');
@@ -368,6 +368,14 @@ void main() {
     this.raf = requestAnimationFrame(frame);
   };
 
+  PrismaticBurst.prototype.stop = function () {
+    if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; }
+  };
+
+  PrismaticBurst.prototype.start = function () {
+    if (!this.raf && this.gl) { this.last = performance.now(); this._loop(); }
+  };
+
   PrismaticBurst.prototype.destroy = function () {
     if (this.raf) cancelAnimationFrame(this.raf);
     if (this._ro) this._ro.disconnect();
@@ -384,6 +392,7 @@ void main() {
     var TRAIL = 18;
     var mouse = { x: -200, y: -200 };
     var container = document.createElement('div');
+    container.id = 'cursorTrail';
     container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:99999;overflow:hidden;';
     document.body.appendChild(container);
     for (var i = 0; i < TRAIL; i++) {
