@@ -1,112 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 145" width="120" height="145" role="img" aria-label="Aurelio Coffee &amp; Bistro">
-  <defs>
-    <style>
-      .ring-dash {
-        stroke-dasharray: 8 5;
-        animation: ringRotate 24s linear infinite;
-        transform-box: fill-box;
-        transform-origin: center;
-      }
-      .ring-inner {
-        animation: ringPulse 4s ease-in-out infinite;
-        transform-box: fill-box;
-        transform-origin: center;
-      }
-      .cup-glow {
-        animation: cupGlow 4s ease-in-out infinite;
-      }
-      .lm-s1 { animation: steamRise 3s ease-in-out infinite; }
-      .lm-s2 { animation: steamRise 3s ease-in-out infinite .7s; }
-      .lm-s3 { animation: steamRise 3s ease-in-out infinite 1.4s; }
-      .dot-tl { animation: dotBlink 3s ease-in-out infinite 0s; }
-      .dot-tr { animation: dotBlink 3s ease-in-out infinite .75s; }
-      .dot-br { animation: dotBlink 3s ease-in-out infinite 1.5s; }
-      .dot-bl { animation: dotBlink 3s ease-in-out infinite 2.25s; }
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Noir Fine Coffee">
+  <!-- Thin square border -->
+  <rect x="14" y="14" width="92" height="92" fill="none" stroke="#a89070" stroke-width="0.7" opacity="0.6"/>
+  <!-- Inner thin border -->
+  <rect x="20" y="20" width="80" height="80" fill="none" stroke="#a89070" stroke-width="0.4" opacity="0.3"/>
 
-      @keyframes ringRotate {
-        from { transform: rotate(0deg); }
-        to   { transform: rotate(360deg); }
-      }
-      @keyframes ringPulse {
-        0%,100% { opacity: .12; }
-        50%     { opacity: .3; }
-      }
-      @keyframes cupGlow {
-        0%,100% { filter: drop-shadow(0 0 3px rgba(200,148,42,.25)); }
-        50%     { filter: drop-shadow(0 0 14px rgba(200,148,42,.65)); }
-      }
-      @keyframes steamRise {
-        0%   { transform: translateY(0);     opacity: 0; }
-        20%  { opacity: .85; }
-        80%  { opacity: .6; }
-        100% { transform: translateY(-14px); opacity: 0; }
-      }
-      @keyframes dotBlink {
-        0%,100% { opacity: .25; }
-        50%     { opacity: .8; }
-      }
-    </style>
-    <radialGradient id="cupFill" cx="50%" cy="50%" r="50%">
-      <stop offset="0%"   stop-color="#c8942a" stop-opacity=".10"/>
-      <stop offset="100%" stop-color="#c8942a" stop-opacity="0"/>
-    </radialGradient>
-  </defs>
+  <!-- Geometric N lettermark, clean and minimal -->
+  <path d="M42,75 L42,45 L78,75 L78,45" fill="none" stroke="#a89070" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/>
 
-  <!-- Subtle background disc -->
-  <circle cx="60" cy="52" r="49" fill="rgba(200,148,42,.03)"/>
+  <!-- Thin rule -->
+  <line x1="30" y1="87" x2="90" y2="87" stroke="#a89070" stroke-width="0.6" opacity="0.5"/>
 
-  <!-- Rotating dashed outer ring -->
-  <circle class="ring-dash" cx="60" cy="52" r="51"
-          fill="none" stroke="#c8942a" stroke-width=".9" opacity=".45"/>
-
-  <!-- Pulsing inner ring -->
-  <circle class="ring-inner" cx="60" cy="52" r="44"
-          fill="none" stroke="rgba(200,148,42,.18)" stroke-width=".6"/>
-
-  <!-- Cardinal accent dots on inner ring -->
-  <circle class="dot-tl" cx="28.9" cy="21.9" r="2.2" fill="#c8942a"/>
-  <circle class="dot-tr" cx="91.1" cy="21.9" r="2.2" fill="#c8942a"/>
-  <circle class="dot-br" cx="91.1" cy="82.1" r="2.2" fill="#c8942a"/>
-  <circle class="dot-bl" cx="28.9" cy="82.1" r="2.2" fill="#c8942a"/>
-
-  <!-- ── CUP ── -->
-  <g class="cup-glow">
-    <!-- Cup body -->
-    <path d="M32,34 L88,34 L88,66 Q88,72 82,72 L38,72 Q32,72 32,66 Z"
-          fill="url(#cupFill)" stroke="#c8942a" stroke-width="2" stroke-linejoin="round"/>
-    <!-- Handle -->
-    <path d="M88,42 Q102,42 102,54 Q102,66 88,66"
-          fill="none" stroke="#c8942a" stroke-width="2" stroke-linecap="round"/>
-    <!-- Coffee surface inside cup -->
-    <ellipse cx="60" cy="37" rx="22" ry="3.5"
-             fill="rgba(200,148,42,.15)" stroke="none"/>
-    <!-- Saucer -->
-    <ellipse cx="60" cy="75.5" rx="32" ry="5.5"
-             fill="none" stroke="#c8942a" stroke-width="1.5" opacity=".8"/>
-  </g>
-
-  <!-- ── STEAM ── -->
-  <path class="lm-s1" d="M45,32 Q41,24 45,16 Q49,8 45,1"
-        fill="none" stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-  <path class="lm-s2" d="M60,30 Q56,22 60,14 Q64,6 60,-1"
-        fill="none" stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-  <path class="lm-s3" d="M75,32 Q71,24 75,16 Q79,8 75,1"
-        fill="none" stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-
-  <!-- ── WORDMARK ── -->
-  <text x="60" y="100"
+  <!-- Wordmark -->
+  <text x="60" y="101"
         text-anchor="middle"
         font-family="Georgia,'Times New Roman',serif"
-        font-size="15" fill="#eeddb0" font-weight="bold" letter-spacing="5">AURELIO</text>
-
-  <!-- Thin rule under wordmark -->
-  <line x1="22" y1="105" x2="98" y2="105"
-        stroke="rgba(200,148,42,.35)" stroke-width=".8"/>
+        font-size="11" fill="#f0ece6" font-weight="bold" letter-spacing="6">NOIR</text>
 
   <!-- Sub-text -->
-  <text x="60" y="117"
+  <text x="60" y="111"
         text-anchor="middle"
         font-family="Arial,Helvetica,sans-serif"
-        font-size="6.5" fill="#c8942a" letter-spacing="3.5" font-weight="600">COFFEE &amp; BISTRO</text>
+        font-size="5.5" fill="#a89070" letter-spacing="3" font-weight="400">FINE COFFEE</text>
 </svg>
