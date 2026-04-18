@@ -3,9 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NOIR — Fine Coffee</title>
+  <title>NOIR</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- Apply saved theme ASAP to avoid flash -->
+  <script>(function(){var t=localStorage.getItem('noir_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
   <style>
     /* ── RESET & VARIABLES ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -433,6 +435,71 @@
       .menu-grid { grid-template-columns: 1fr; }
       .testi-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── LIGHT MODE ── */
+    [data-theme="light"] {
+      --bg:    #F5F2ED;
+      --bg2:   #FDFAF5;
+      --bg3:   #EDE8DF;
+      --text:  #1c1820;
+      --muted: #6b6480;
+      --cream: #1c1820;
+    }
+    [data-theme="light"] body { cursor: auto; }
+    [data-theme="light"] #cursorTrail { display: none; }
+    [data-theme="light"] ::-webkit-scrollbar-track { background: var(--bg); }
+    [data-theme="light"] nav {
+      background: rgba(245,242,237,.92) !important;
+      border-bottom-color: rgba(255,179,0,.3);
+    }
+    [data-theme="light"] nav.scrolled {
+      background: rgba(245,242,237,.98) !important;
+      box-shadow: 0 4px 20px rgba(0,0,0,.07), 0 1px 0 rgba(255,179,0,.2);
+    }
+    [data-theme="light"] .hamburger span { background: var(--text); }
+    [data-theme="light"] .mobile-menu {
+      background: rgba(245,242,237,.98) !important;
+      border-left-color: rgba(255,179,0,.25);
+    }
+    [data-theme="light"] .mobile-menu a { color: var(--text) !important; }
+    [data-theme="light"] .mobile-overlay { background: rgba(180,170,160,.55); }
+    [data-theme="light"] .prism-wrap canvas { mix-blend-mode: multiply; opacity: 0.08; }
+    [data-theme="light"] .hero-bg {
+      background: radial-gradient(ellipse 90% 80% at 60% 40%, rgba(124,77,255,.04) 0%, rgba(255,64,129,.02) 40%, transparent 70%),
+                  linear-gradient(160deg, #fdfaf5 0%, #f5f2ed 100%);
+    }
+    [data-theme="light"] .hero h1 { color: var(--text); }
+    [data-theme="light"] .hero-deco-text { -webkit-text-stroke: 1px rgba(26,24,32,.05); color: transparent; }
+    [data-theme="light"] .process-sticky { background: var(--bg2); }
+    [data-theme="light"] .center-node { background: radial-gradient(circle, rgba(255,179,0,.15) 0%, rgba(124,77,255,.08) 70%); }
+    [data-theme="light"] .sat-node { background: rgba(245,242,237,.95); border-color: rgba(255,179,0,.4); }
+    [data-theme="light"] .about { background: var(--bg2); }
+    [data-theme="light"] .about-img-frame { background: linear-gradient(135deg, var(--bg3) 0%, #ddd6c8 100%); }
+    [data-theme="light"] .testimonials { background: var(--bg2); }
+    [data-theme="light"] footer { background: var(--bg3); border-top-color: rgba(255,179,0,.2); }
+    [data-theme="light"] .footer-bottom { border-top-color: rgba(255,179,0,.12); }
+    [data-theme="light"] .scroll-progress { background: linear-gradient(90deg, var(--gold), var(--hot)); }
+
+    /* ── THEME TOGGLE BUTTON ── */
+    .theme-toggle {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: transparent; border: 1.5px solid rgba(255,179,0,.35);
+      color: var(--gold); cursor: pointer; font-size: .88rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s; flex-shrink: 0;
+    }
+    .theme-toggle:hover { background: rgba(255,179,0,.12); border-color: var(--gold); }
+
+    /* ── MOBILE PERF: disable heavy paint animations on touch devices ── */
+    @media (hover: none) and (pointer: coarse) {
+      .blob { animation: none !important; }
+      .hero-ring { animation: none !important; }
+      .about-badge { animation: none !important; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .blob, .hero-ring, .about-badge { animation: none !important; }
+      .marquee-track { animation-play-state: paused; }
+    }
   </style>
 </head>
 <body>
@@ -450,10 +517,11 @@
     <rect class="draw-ring" x="8" y="8" width="104" height="104" stroke="url(#lGrad)" stroke-width="1.2" stroke-dasharray="416" stroke-dashoffset="416"/>
     <path class="draw-cup" d="M34,84 L34,36 L86,84 L86,36" stroke="url(#lGrad)" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" stroke-dasharray="230" stroke-dashoffset="230"/>
     <text class="loader-wm"  x="60" y="108" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#FFFFFF" font-weight="bold" letter-spacing="5">NOIR</text>
-    <text class="loader-sub" x="60" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="5" fill="#FFB300" letter-spacing="3" font-weight="400">FINE COFFEE</text>
   </svg>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
+<!-- Skip loader if already visited this session -->
+<script>if(sessionStorage.getItem('noir_visited')){var l=document.getElementById('loader');if(l)l.classList.add('done');}</script>
 
 <!-- ── SCROLL PROGRESS ── -->
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -488,6 +556,9 @@
       <a href="menu.html" class="btn-outline" style="padding:10px 22px;font-size:.85rem;">Menu</a>
       <a href="order.html" class="btn-primary" style="padding:10px 22px;font-size:.85rem;"><i class="fa-solid fa-bag-shopping"></i> Order Now</a>
     </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode">
+      <i class="fa-solid fa-sun" id="themeIcon"></i>
+    </button>
     <button class="hamburger" id="hamburger" aria-label="Open menu">
       <span></span><span></span><span></span>
     </button>
@@ -527,7 +598,6 @@
     <div class="hero-content">
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-line"></div>
-        <span>Fine Coffee</span>
       </div>
       <h1>The Art<br/>of <em>Coffee</em></h1>
       <p class="hero-sub">Where every cup is a ritual and every plate tells a story. Sourced from the world's finest estates, crafted by passionate artisans.</p>
@@ -789,19 +859,35 @@
 
 <script src="prismatic-burst.js"></script>
 <script>
-/* ── PRISMATIC BURST BACKGROUNDS ── */
+/* ── PRISMATIC BURST BACKGROUNDS — lazy init + pause when off screen ── */
 (function() {
+  var isMobile = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   var heroColors   = ['#FFB300','#FF4081','#7C4DFF','#00E5FF'];
   var menuColors   = ['#FFB300','#FF4081'];
   var aboutColors  = ['#00E5FF','#7C4DFF'];
   var testiColors  = ['#7C4DFF','#E040FB'];
   var footerColors = ['#FFB300','#7C4DFF'];
+  var allBursts = [];
 
   function makeBurst(id, colors, opts) {
     var el = document.getElementById(id);
     if (!el) return;
     opts = Object.assign({ colors: colors, intensity: 1.5, speed: 0.35, rayCount: 20, mixBlendMode: 'screen', animationType: 'rotate3d' }, opts || {});
-    new PrismaticBurst(el, opts);
+    if (isMobile) { opts.rayCount = Math.min(opts.rayCount, 10); opts.intensity = Math.min(opts.intensity, 1.0); }
+
+    var burst = null;
+    var createObs = new IntersectionObserver(function(entries) {
+      if (!entries[0].isIntersecting) return;
+      createObs.disconnect();
+      burst = new PrismaticBurst(el, opts);
+      allBursts.push(burst);
+      // pause/resume when scrolled away
+      var visObs = new IntersectionObserver(function(vis) {
+        if (vis[0].isIntersecting) burst.start(); else burst.stop();
+      }, { rootMargin: '100px 0px' });
+      visObs.observe(el);
+    }, { rootMargin: '200px 0px' });
+    createObs.observe(el);
   }
 
   makeBurst('heroPrism',    heroColors,   { intensity: 2.2, speed: 0.45, rayCount: 24, animationType: 'hover' });
@@ -812,15 +898,22 @@
   makeBurst('testiPrism',   testiColors,  { intensity: 1.2, speed: 0.3,  rayCount: 14 });
   makeBurst('ctaPrism',     heroColors,   { intensity: 1.8, speed: 0.4,  rayCount: 22 });
   makeBurst('footerPrism',  footerColors, { intensity: 1.0, speed: 0.25, rayCount: 12 });
+
+  // Pause all when tab is hidden
+  document.addEventListener('visibilitychange', function() {
+    allBursts.forEach(function(b) { if (document.hidden) b.stop(); else b.start(); });
+  });
 })();
 
-/* ── CURSOR TRAIL ── */
-initCursorTrail('#FFB300', '#7C4DFF');
+/* ── CURSOR TRAIL — skip on touch devices ── */
+if (!('ontouchstart' in window) && !window.matchMedia('(hover: none)').matches) {
+  initCursorTrail('#FFB300', '#7C4DFF');
+}
 
 /* ── STAR FIELD ── */
 (function() {
   const sf = document.getElementById('starField');
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 40; i++) {
     const s = document.createElement('div');
     const colors = ['var(--cream)','var(--gold)','var(--hot)','var(--electric)'];
     s.className = 'star';
@@ -966,7 +1059,10 @@ document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => 
 
 /* ── LOADER ── */
 window.addEventListener('load', () => {
-  setTimeout(() => { document.getElementById('loader').classList.add('done'); }, 2350);
+  if (!sessionStorage.getItem('noir_visited')) {
+    sessionStorage.setItem('noir_visited', '1');
+    setTimeout(() => { document.getElementById('loader').classList.add('done'); }, 2350);
+  }
 });
 
 /* ── SCROLL PROGRESS + NAVBAR SHRINK ── */
@@ -1013,6 +1109,22 @@ const counterObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.5 });
 document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
+
+/* ── THEME TOGGLE ── */
+(function() {
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('noir_theme', theme);
+    const icon = document.getElementById('themeIcon');
+    if (icon) icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  }
+  const saved = localStorage.getItem('noir_theme') || 'dark';
+  applyTheme(saved);
+  const btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', function() {
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
 </script>
 </body>
 </html>

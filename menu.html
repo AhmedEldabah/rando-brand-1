@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Menu — NOIR Fine Coffee</title>
+  <title>Menu — NOIR</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>(function(){var t=localStorage.getItem('noir_theme')||'dark';document.documentElement.setAttribute('data-theme',t);})();</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -171,6 +172,27 @@ nav.scrolled{background:rgba(8,8,12,.97)!important;box-shadow:0 4px 28px rgba(0,
 .ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.22);transform:scale(0);animation:rippleAnim .65s linear;pointer-events:none;}
 @keyframes rippleAnim{to{transform:scale(4);opacity:0;}}
 @media(max-width:768px){input,select,textarea{font-size:16px!important;}}
+/* ── LIGHT MODE ── */
+[data-theme="light"]{--bg:#F5F2ED;--bg2:#FDFAF5;--bg3:#EDE8DF;--text:#1c1820;--muted:#6b6480;--cream:#1c1820;}
+[data-theme="light"] body{cursor:auto;}
+[data-theme="light"] #cursorTrail{display:none;}
+[data-theme="light"] nav{background:rgba(245,242,237,.92)!important;border-bottom-color:rgba(255,179,0,.3);}
+[data-theme="light"] nav.scrolled{background:rgba(245,242,237,.98)!important;box-shadow:0 4px 20px rgba(0,0,0,.07);}
+[data-theme="light"] .hamburger span{background:var(--text);}
+[data-theme="light"] .mobile-menu{background:rgba(245,242,237,.98)!important;border-left-color:rgba(255,179,0,.25);}
+[data-theme="light"] .mobile-menu a{color:var(--text)!important;}
+[data-theme="light"] .mobile-overlay{background:rgba(180,170,160,.55);}
+[data-theme="light"] .prism-wrap canvas{mix-blend-mode:multiply;opacity:.08;}
+[data-theme="light"] .page-hero{background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,179,0,.1) 0%,rgba(124,77,255,.06) 40%,transparent 70%),var(--bg2);}
+[data-theme="light"] .page-hero h1{color:var(--text);}
+[data-theme="light"] .menu-body{background:var(--bg);}
+[data-theme="light"] .menu-nav{background:rgba(245,242,237,.95);border-bottom-color:rgba(255,179,0,.15);}
+[data-theme="light"] .cart-drawer{background:var(--bg2);border-left-color:rgba(255,179,0,.2);}
+[data-theme="light"] .drawer-head{border-bottom-color:rgba(255,179,0,.12);}
+[data-theme="light"] .drawer-footer{border-top-color:rgba(255,179,0,.12);}
+/* ── THEME TOGGLE ── */
+.theme-toggle{width:36px;height:36px;border-radius:50%;background:transparent;border:1.5px solid rgba(255,179,0,.35);color:var(--gold);cursor:pointer;font-size:.88rem;display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s;flex-shrink:0;}
+.theme-toggle:hover{background:rgba(255,179,0,.12);border-color:var(--gold);}
   </style>
 </head>
 <body>
@@ -203,6 +225,7 @@ nav.scrolled{background:rgba(8,8,12,.97)!important;box-shadow:0 4px 28px rgba(0,
     <div class="nav-cta">
       <a href="order.html" class="btn-primary" style="padding:10px 22px;font-size:.85rem;"><i class="fa-solid fa-bag-shopping"></i> Order Now</a>
     </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark/light mode"><i class="fa-solid fa-sun" id="themeIcon"></i></button>
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
@@ -487,5 +510,21 @@ new PrismaticBurst(document.getElementById('heroPrism'), {
   colors: ['#FFB300','#FF4081','#7C4DFF','#00E5FF'],
   intensity: 2.2, speed: 0.45, rayCount: 24, animationType: 'hover', mixBlendMode: 'screen'
 });
-initCursorTrail('#FFB300', '#7C4DFF');
+if (!('ontouchstart' in window) && !window.matchMedia('(hover: none)').matches) {
+  initCursorTrail('#FFB300', '#7C4DFF');
+}
+/* ── THEME TOGGLE ── */
+(function() {
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    localStorage.setItem('noir_theme', t);
+    var icon = document.getElementById('themeIcon');
+    if (icon) icon.className = t === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+  }
+  applyTheme(localStorage.getItem('noir_theme') || 'dark');
+  var btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', function() {
+    applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
 </script>
