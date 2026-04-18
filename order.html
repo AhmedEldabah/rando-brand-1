@@ -427,8 +427,8 @@ function formatCard(input) {
   input.value = v;
   const icon = document.getElementById('cardTypeIcon');
   const first = v[0];
-  if (first === '4') icon.textContent = '💳';
-  else if (first === '5') icon.textContent = '💳';
+  if (first === '4') icon.textContent = '🔵'; // Visa
+  else if (first === '5') icon.textContent = '🔴'; // Mastercard
   else icon.textContent = '💳';
 }
 function formatExpiry(input) {
@@ -530,7 +530,7 @@ function placeOrder() {
     localStorage.removeItem('aurelio_cart');
     cart = [];
     // Generate order ID
-    const orderId = 'ORD-' + Math.random().toString(36).substring(2,8).toUpperCase();
+    const orderId = 'ORD-' + (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID().substring(0, 8).toUpperCase() : (Date.now().toString(36) + Math.random().toString(36).substring(2,5)).toUpperCase());
     document.getElementById('orderIdBox').textContent = orderId;
     const payLabels = { card:'Credit Card', instapay:'InstaPay', wallet:'Mobile Wallet', cash:'Cash on Delivery' };
     document.getElementById('payConfirm').textContent = payLabels[payMethod];

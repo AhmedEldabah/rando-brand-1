@@ -720,12 +720,12 @@ document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click
 
 /* ── MENU PREVIEW DATA ── */
 const menuItems = [
-  { cat:'coffee', emoji:'☕', name:'Ethiopian Pour Over', desc:'Single-origin Yirgacheffe, bright & floral with notes of jasmine and bergamot.', price:'EGP 85' },
-  { cat:'coffee', emoji:'🥛', name:'Oat Milk Flat White', desc:'Double ristretto over velvety oat milk, the perfect morning companion.', price:'EGP 70' },
-  { cat:'food',   emoji:'🍳', name:'Truffle Eggs Benedict', desc:'Poached eggs, ibérico ham, hollandaise, black truffle shavings on brioche.', price:'EGP 195' },
-  { cat:'food',   emoji:'🥗', name:'Burrata & Heirloom', desc:'Creamy burrata, heirloom tomatoes, basil oil, balsamic pearls.', price:'EGP 160' },
-  { cat:'dessert',emoji:'🍫', name:'Dark Chocolate Fondant', desc:'70% Valrhona, molten centre, salted caramel ice cream, praline crumble.', price:'EGP 120' },
-  { cat:'dessert',emoji:'🍰', name:'Tiramisu Classico', desc:'Espresso-soaked ladyfingers, mascarpone mousse, dusted cocoa.', price:'EGP 95' },
+  { cat:'coffee', emoji:'☕', name:'Ethiopian Pour Over', desc:'Single-origin Yirgacheffe, bright & floral with notes of jasmine and bergamot.', price:85 },
+  { cat:'coffee', emoji:'🥛', name:'Oat Milk Flat White', desc:'Double ristretto over velvety oat milk, the perfect morning companion.', price:70 },
+  { cat:'food',   emoji:'🍳', name:'Truffle Eggs Benedict', desc:'Poached eggs, ibérico ham, hollandaise, black truffle shavings on brioche.', price:195 },
+  { cat:'food',   emoji:'🥗', name:'Burrata & Heirloom', desc:'Creamy burrata, heirloom tomatoes, basil oil, balsamic pearls.', price:160 },
+  { cat:'dessert',emoji:'🍫', name:'Dark Chocolate Fondant', desc:'70% Valrhona, molten centre, salted caramel ice cream, praline crumble.', price:120 },
+  { cat:'dessert',emoji:'🍰', name:'Tiramisu Classico', desc:'Espresso-soaked ladyfingers, mascarpone mousse, dusted cocoa.', price:95 },
 ];
 
 const grid = document.getElementById('menuGrid');
@@ -741,8 +741,8 @@ function renderMenu(cat) {
         <div class="card-title">${item.name}</div>
         <p class="card-desc">${item.desc}</p>
         <div class="card-footer">
-          <span class="card-price">${item.price}</span>
-          <button class="card-add" onclick="addToCart('${item.name}','${item.price}')"><i class="fa-solid fa-plus"></i></button>
+          <span class="card-price">EGP ${item.price}</span>
+          <button class="card-add" onclick="addToCart('${item.name.replace(/'/g,"&#39;")}',${item.price},'${item.emoji}')"><i class="fa-solid fa-plus"></i></button>
         </div>
       </div>
     </div>
@@ -760,8 +760,8 @@ renderMenu('all');
 
 /* ── CART (mini) ── */
 let cart = JSON.parse(localStorage.getItem('aurelio_cart') || '[]');
-function addToCart(name, price) {
-  cart.push({ name, price });
+function addToCart(name, price, emoji) {
+  cart.push({ name, price: Number(price), emoji: emoji || '🍽️' });
   localStorage.setItem('aurelio_cart', JSON.stringify(cart));
   showToast(`${name} added to bag`);
 }

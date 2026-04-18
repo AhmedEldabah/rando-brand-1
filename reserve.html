@@ -328,8 +328,7 @@ document.getElementById('hamburger').addEventListener('click', () => document.ge
 
 /* DATE MIN */
 const today = new Date();
-const pad = n => String(n).padStart(2, '0');
-const minDate = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+const minDate = today.toISOString().split('T')[0];
 document.getElementById('resDate').min = minDate;
 document.getElementById('resDate').value = minDate;
 
@@ -384,7 +383,7 @@ function submitReservation() {
   btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Confirming…';
 
   setTimeout(() => {
-    const bookingId = 'RES-' + Math.random().toString(36).substring(2,8).toUpperCase();
+    const bookingId = 'RES-' + (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID().substring(0, 8).toUpperCase() : (Date.now().toString(36) + Math.random().toString(36).substring(2,5)).toUpperCase());
     const dateObj = new Date(date + 'T00:00:00');
     const dateStr = dateObj.toLocaleDateString('en-GB', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
 
