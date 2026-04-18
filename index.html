@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AURELIO — Premium Coffee & Bistro</title>
+  <title>NOIR — Fine Coffee</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     /* ── RESET & VARIABLES ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:        #080503;
-      --bg2:       #110b06;
-      --bg3:       #1c130b;
-      --gold:      #c8942a;
-      --gold-lt:   #e8b84b;
-      --cream:     #eeddb0;
-      --text:      #ddc9a0;
-      --muted:     #7a6850;
-      --green:     #3a6645;
+      --bg:        #0c0c0c;
+      --bg2:       #141414;
+      --bg3:       #1c1c1c;
+      --gold:      #a89070;
+      --gold-lt:   #c4a888;
+      --cream:     #f0ece6;
+      --text:      #d4d0ca;
+      --muted:     #888480;
+      --green:     #3a4a3a;
       --white:     #ffffff;
       --nav-h:     72px;
       --r:         12px;
@@ -28,7 +28,7 @@
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
-    ::selection { background: rgba(200,148,42,.35); }
+    ::selection { background: rgba(168,144,112,.35); }
 
     /* ── TYPOGRAPHY ── */
     .serif { font-family: 'Playfair Display', serif; }
@@ -45,7 +45,7 @@
       border: none; cursor: pointer; font-size: .95rem;
       transition: background .25s, transform .2s, box-shadow .25s;
     }
-    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,148,42,.4); }
+    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(168,144,112,.4); }
     .btn-outline {
       display: inline-flex; align-items: center; gap: 8px;
       background: transparent; color: var(--cream); font-weight: 500;
@@ -54,14 +54,14 @@
       transition: border-color .25s, background .25s, transform .2s;
     }
     .btn-outline:hover { border-color: var(--cream); background: rgba(238,221,176,.07); transform: translateY(-2px); }
-    .tag { display: inline-block; background: rgba(200,148,42,.15); color: var(--gold-lt); font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 4px 14px; border-radius: 50px; margin-bottom: 16px; }
+    .tag { display: inline-block; background: rgba(168,144,112,.15); color: var(--gold-lt); font-size: .75rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; padding: 4px 14px; border-radius: 50px; margin-bottom: 16px; }
     .section-label { font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
 
     /* ── KEYFRAMES ── */
     @keyframes fadeInUp   { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
     @keyframes floatA     { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-16px); } }
     @keyframes floatB     { 0%,100% { transform:translateY(0) rotate(0deg); } 50% { transform:translateY(-10px) rotate(8deg); } }
-    @keyframes glow       { 0%,100% { box-shadow:0 0 20px rgba(200,148,42,.25); } 50% { box-shadow:0 0 60px rgba(200,148,42,.55); } }
+    @keyframes glow       { 0%,100% { box-shadow:0 0 20px rgba(168,144,112,.25); } 50% { box-shadow:0 0 60px rgba(168,144,112,.55); } }
     @keyframes shimmer    { 0% { background-position:-200% center; } 100% { background-position:200% center; } }
     @keyframes spinSlow   { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
     @keyframes drawLine   { from { stroke-dashoffset:var(--len); } to { stroke-dashoffset:0; } }
@@ -72,8 +72,8 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
       height: var(--nav-h); display: flex; align-items: center;
-      background: rgba(8,5,3,.75); backdrop-filter: blur(14px) saturate(1.4);
-      border-bottom: 1px solid rgba(200,148,42,.12);
+      background: rgba(12,12,12,.75); backdrop-filter: blur(14px) saturate(1.4);
+      border-bottom: 1px solid rgba(168,144,112,.12);
       transition: background .3s;
     }
     nav .nav-inner { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; justify-content: space-between; }
@@ -85,7 +85,7 @@
     .nav-cta { display: flex; gap: 12px; }
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
     .hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); border-radius: 2px; transition: all .3s; }
-    .mobile-menu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; background: rgba(8,5,3,.97); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
+    .mobile-menu { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; background: rgba(12,12,12,.97); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 32px; }
     .mobile-menu.open { display: flex; }
     .mobile-menu a { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--cream); text-decoration: none; transition: color .2s; }
     .mobile-menu a:hover { color: var(--gold); }
@@ -101,8 +101,8 @@
     }
     .hero-bg {
       position: absolute; inset: 0; z-index: 0;
-      background: radial-gradient(ellipse 80% 80% at 60% 40%, rgba(200,148,42,.08) 0%, transparent 60%),
-                  linear-gradient(160deg, #0e0906 0%, #080503 50%, #0a0706 100%);
+      background: radial-gradient(ellipse 80% 80% at 60% 40%, rgba(168,144,112,.08) 0%, transparent 60%),
+                  linear-gradient(160deg, #0e0e0e 0%, #0c0c0c 50%, #0c0c0c 100%);
     }
     .hero-grain {
       position: absolute; inset: 0; z-index: 1; opacity: .045;
@@ -111,10 +111,10 @@
     }
     /* floating blobs */
     .blob { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
-    .blob-1 { width: 500px; height: 500px; background: rgba(200,148,42,.06); top: -100px; right: -100px; animation: blobPulse 8s ease-in-out infinite; transform-origin: top right; }
+    .blob-1 { width: 500px; height: 500px; background: rgba(168,144,112,.06); top: -100px; right: -100px; animation: blobPulse 8s ease-in-out infinite; transform-origin: top right; }
     .blob-2 { width: 350px; height: 350px; background: rgba(58,102,69,.08); bottom: 80px; left: -60px; animation: blobPulse 11s ease-in-out infinite 3s; transform-origin: bottom left; }
     /* decorative rings */
-    .hero-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(200,148,42,.09); pointer-events: none; }
+    .hero-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(168,144,112,.09); pointer-events: none; }
     .ring-1 { width: 700px; height: 700px; top: 50%; right: -200px; transform: translateY(-50%); }
     .ring-2 { width: 480px; height: 480px; top: 50%; right: -60px; transform: translateY(-50%); }
     /* floating coffee icons */
@@ -146,14 +146,14 @@
     }
     .hero-img-inner::before {
       content: ''; position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(135deg, rgba(200,148,42,.05) 0%, transparent 60%);
+      background: linear-gradient(135deg, rgba(168,144,112,.05) 0%, transparent 60%);
     }
     /* big decorative text */
     .hero-deco-text {
       position: absolute; bottom: 60px; right: 24px; z-index: 1;
       font-family: 'Playfair Display', serif; font-size: clamp(5rem, 12vw, 11rem);
       font-weight: 900; color: transparent;
-      -webkit-text-stroke: 1px rgba(200,148,42,.08);
+      -webkit-text-stroke: 1px rgba(168,144,112,.08);
       letter-spacing: -.03em; user-select: none; pointer-events: none;
       line-height: 1;
     }
@@ -195,8 +195,8 @@
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%) scale(1);
       width: 110px; height: 110px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(200,148,42,.25) 0%, rgba(200,148,42,.05) 70%);
-      border: 1.5px solid rgba(200,148,42,.5);
+      background: radial-gradient(circle, rgba(168,144,112,.25) 0%, rgba(168,144,112,.05) 70%);
+      border: 1.5px solid rgba(168,144,112,.5);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       z-index: 2; transition: transform .05s linear;
       animation: glow 3s ease-in-out infinite;
@@ -207,8 +207,8 @@
     .sat-node {
       position: absolute;
       width: 78px; height: 78px; border-radius: 50%;
-      background: rgba(28,19,11,.9);
-      border: 1.5px solid rgba(200,148,42,.3);
+      background: rgba(28,28,28,.9);
+      border: 1.5px solid rgba(168,144,112,.3);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       z-index: 2; opacity: 0; transform: translate(-50%, -50%) scale(.4);
       transition: transform .05s linear, opacity .05s linear;
@@ -226,7 +226,7 @@
     /* outer ring */
     .outer-ring {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-      border-radius: 50%; border: 1px solid rgba(200,148,42,.06);
+      border-radius: 50%; border: 1px solid rgba(168,144,112,.06);
       pointer-events: none; z-index: 0;
       transition: transform .05s linear;
     }
@@ -234,7 +234,7 @@
     .or-2 { width: 380px; height: 380px; animation: spinSlow 60s linear infinite; }
     .or-3 { width: 520px; height: 520px; animation: spinSlow 90s linear infinite reverse; }
     /* progress bar */
-    .process-progress { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); width: 200px; height: 2px; background: rgba(200,148,42,.12); border-radius: 2px; z-index: 3; }
+    .process-progress { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); width: 200px; height: 2px; background: rgba(168,144,112,.12); border-radius: 2px; z-index: 3; }
     .process-progress-fill { height: 100%; background: var(--gold); border-radius: 2px; width: 0%; transition: width .05s linear; }
 
     /* ── MENU PREVIEW ── */
@@ -245,18 +245,18 @@
     .menu-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
     .tab-btn {
       padding: 10px 24px; border-radius: 50px; background: transparent;
-      color: var(--muted); border: 1px solid rgba(200,148,42,.2);
+      color: var(--muted); border: 1px solid rgba(168,144,112,.2);
       font-family: 'Inter', sans-serif; font-weight: 500; font-size: .9rem;
       cursor: pointer; transition: all .2s;
     }
     .tab-btn.active, .tab-btn:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
     .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
     .menu-card {
-      background: var(--bg3); border: 1px solid rgba(200,148,42,.12); border-radius: var(--r);
+      background: var(--bg3); border: 1px solid rgba(168,144,112,.12); border-radius: var(--r);
       overflow: hidden; transition: transform .25s, border-color .25s, box-shadow .25s;
       cursor: pointer;
     }
-    .menu-card:hover { transform: translateY(-6px); border-color: rgba(200,148,42,.35); box-shadow: 0 16px 48px rgba(0,0,0,.4); }
+    .menu-card:hover { transform: translateY(-6px); border-color: rgba(168,144,112,.35); box-shadow: 0 16px 48px rgba(0,0,0,.4); }
     .card-img { height: 200px; object-fit: cover; width: 100%; display: block; }
     .card-img-placeholder { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 4rem; background: var(--bg2); }
     .card-body { padding: 20px; }
@@ -275,9 +275,9 @@
     .about-img-wrap { position: relative; }
     .about-img-frame {
       border-radius: var(--r); overflow: hidden; aspect-ratio: 4/5;
-      background: linear-gradient(135deg, var(--bg3) 0%, #2a1b0e 100%);
+      background: linear-gradient(135deg, var(--bg3) 0%, #262626 100%);
       display: flex; align-items: center; justify-content: center; font-size: 8rem;
-      border: 1px solid rgba(200,148,42,.15);
+      border: 1px solid rgba(168,144,112,.15);
     }
     .about-badge {
       position: absolute; bottom: -20px; right: -20px;
@@ -293,7 +293,7 @@
     .about-text h2 { color: var(--cream); margin-bottom: 24px; }
     .about-text p { margin-bottom: 18px; }
     .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
-    .stat-item { background: var(--bg3); border: 1px solid rgba(200,148,42,.12); border-radius: var(--r); padding: 20px; text-align: center; }
+    .stat-item { background: var(--bg3); border: 1px solid rgba(168,144,112,.12); border-radius: var(--r); padding: 20px; text-align: center; }
     .stat-num { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 900; color: var(--gold); }
     .stat-label { font-size: .8rem; font-weight: 500; color: var(--muted); letter-spacing: .06em; margin-top: 4px; }
     @media (max-width: 768px) { .about-inner { grid-template-columns: 1fr; gap: 40px; } }
@@ -311,8 +311,8 @@
     /* ── TESTIMONIALS ── */
     .testimonials { padding: 120px 0; background: var(--bg2); }
     .testi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
-    .testi-card { background: var(--bg3); border: 1px solid rgba(200,148,42,.1); border-radius: var(--r); padding: 32px; transition: border-color .25s; }
-    .testi-card:hover { border-color: rgba(200,148,42,.3); }
+    .testi-card { background: var(--bg3); border: 1px solid rgba(168,144,112,.1); border-radius: var(--r); padding: 32px; transition: border-color .25s; }
+    .testi-card:hover { border-color: rgba(168,144,112,.3); }
     .testi-stars { color: var(--gold); font-size: .9rem; margin-bottom: 16px; letter-spacing: 2px; }
     .testi-text { font-style: italic; font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--cream); line-height: 1.7; margin-bottom: 24px; }
     .testi-author { display: flex; align-items: center; gap: 12px; }
@@ -328,26 +328,26 @@
     .cta-section::before {
       content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
       width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(200,148,42,.08) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(168,144,112,.08) 0%, transparent 70%);
     }
     .cta-section h2 { color: var(--cream); position: relative; z-index: 1; margin-bottom: 16px; }
     .cta-section p { position: relative; z-index: 1; max-width: 480px; margin: 0 auto 40px; }
     .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
 
     /* ── FOOTER ── */
-    footer { background: var(--bg2); border-top: 1px solid rgba(200,148,42,.1); padding: 80px 0 32px; }
+    footer { background: var(--bg2); border-top: 1px solid rgba(168,144,112,.1); padding: 80px 0 32px; }
     .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 60px; }
     .footer-brand .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 900; color: var(--cream); margin-bottom: 12px; }
     .footer-brand .logo span { color: var(--gold); }
     .footer-brand p { font-size: .88rem; max-width: 260px; margin-bottom: 24px; }
     .footer-social { display: flex; gap: 12px; }
-    .social-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--bg3); border: 1px solid rgba(200,148,42,.2); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: .9rem; text-decoration: none; transition: all .2s; }
+    .social-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--bg3); border: 1px solid rgba(168,144,112,.2); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: .9rem; text-decoration: none; transition: all .2s; }
     .social-btn:hover { background: var(--gold); color: #fff; border-color: var(--gold); }
     .footer-col h4 { font-family: 'Playfair Display', serif; color: var(--cream); margin-bottom: 20px; font-size: 1rem; }
     .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .footer-col a { color: var(--muted); text-decoration: none; font-size: .88rem; transition: color .2s; }
     .footer-col a:hover { color: var(--cream); }
-    .footer-bottom { border-top: 1px solid rgba(200,148,42,.08); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom { border-top: 1px solid rgba(168,144,112,.08); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
     .footer-bottom p { font-size: .82rem; color: var(--muted); }
     @media (max-width: 768px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 480px) { .footer-inner { grid-template-columns: 1fr; } }
@@ -369,39 +369,26 @@
     /* ── LOADER ── */
     #loader { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity .7s ease, visibility .7s ease; }
     #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
-    .loader-logo { width: 180px; height: 210px; }
-    .draw-ring    { animation: drawIn 1.1s ease .1s forwards; }
-    .draw-cup     { animation: drawIn .9s  ease .4s forwards; }
-    .draw-handle  { animation: drawIn .5s  ease 1s   forwards; }
-    .draw-saucer  { animation: drawIn .5s  ease 1.2s forwards; }
+    .loader-logo { width: 160px; height: 160px; }
+    .draw-ring    { animation: drawIn 1.2s ease .1s forwards; }
+    .draw-cup     { animation: drawIn 1s   ease .5s forwards; }
     @keyframes drawIn { to { stroke-dashoffset: 0; } }
-    .loader-steam         { opacity: 0; animation: lSteamIn .5s ease 1.5s forwards; }
-    .loader-steam.ls2     { animation-delay: 1.65s; }
-    .loader-steam.ls3     { animation-delay: 1.8s; }
-    @keyframes lSteamIn   { to { opacity: .9; } }
-    .loader-wm            { opacity: 0; animation: lFadeIn .6s ease 1.6s forwards; }
-    .loader-sub           { opacity: 0; animation: lFadeIn .6s ease 1.8s forwards; }
+    .loader-wm            { opacity: 0; animation: lFadeIn .6s ease 1.4s forwards; }
+    .loader-sub           { opacity: 0; animation: lFadeIn .6s ease 1.7s forwards; }
     @keyframes lFadeIn    { to { opacity: 1; } }
-    .loader-bar { width: 160px; height: 2px; background: rgba(200,148,42,.15); border-radius: 2px; margin-top: 28px; overflow: hidden; }
+    .loader-bar { width: 160px; height: 2px; background: rgba(168,144,112,.15); border-radius: 2px; margin-top: 28px; overflow: hidden; }
     .loader-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); border-radius: 2px; animation: loaderFill 2.3s ease forwards; }
     @keyframes loaderFill { from { width: 0; } to { width: 100%; } }
 
     /* ── ENHANCED NAVBAR ── */
     nav { transition: background .3s, box-shadow .3s; }
-    nav.scrolled { background: rgba(8,5,3,.97) !important; box-shadow: 0 4px 28px rgba(0,0,0,.35); }
+    nav.scrolled { background: rgba(12,12,12,.97) !important; box-shadow: 0 4px 28px rgba(0,0,0,.35); }
 
     /* ── NAV LOGO ── */
     .nav-logo { display: flex !important; align-items: center; gap: 10px; text-decoration: none; }
-    .logo-mark { width: 30px; height: 28px; flex-shrink: 0; overflow: visible; }
-    .logo-wordmark { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--cream); letter-spacing: .04em; }
+    .logo-mark { width: 28px; height: 28px; flex-shrink: 0; overflow: visible; }
+    .logo-wordmark { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--cream); letter-spacing: .08em; }
     .logo-wordmark .accent { color: var(--gold); }
-    .lm-s1,.lm-s2,.lm-s3 { animation: lmSteam 2.8s ease-in-out infinite; }
-    .lm-s2 { animation-delay: .6s; }
-    .lm-s3 { animation-delay: 1.2s; }
-    @keyframes lmSteam {
-      0%,100% { opacity: .4; transform: translateY(0); }
-      50%     { opacity: .9; transform: translateY(-2.5px); }
-    }
 
     /* ── HAMBURGER ANIMATION ── */
     .hamburger span { transition: transform .3s ease, opacity .3s ease; }
@@ -418,7 +405,7 @@
       width: min(300px, 85vw);
       left: auto;
       right: 0;
-      border-left: 1px solid rgba(200,148,42,.12);
+      border-left: 1px solid rgba(168,144,112,.12);
     }
     .mobile-menu.open { transform: translateX(0); visibility: visible; }
     .mobile-overlay { position: fixed; inset: 0; z-index: 998; background: rgba(0,0,0,.55); opacity: 0; pointer-events: none; transition: opacity .35s; }
@@ -430,7 +417,7 @@
     @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
 
     /* ── CARD HOVER GLOW ── */
-    .menu-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.4), 0 0 0 1px rgba(200,148,42,.25); }
+    .menu-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.4), 0 0 0 1px rgba(168,144,112,.25); }
     .testi-card { transition: transform .3s ease, border-color .25s, box-shadow .3s; }
     .testi-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
     .gallery-cell { transition: transform .35s ease, box-shadow .35s; }
@@ -455,16 +442,11 @@
 
 <!-- ── LOADER ── -->
 <div id="loader">
-  <svg class="loader-logo" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle class="draw-ring" cx="60" cy="52" r="50" stroke="#c8942a" stroke-width=".9" stroke-dasharray="314" stroke-dashoffset="314"/>
-    <path class="draw-cup" d="M32,34 L88,34 L88,66 Q88,72 82,72 L38,72 Q32,72 32,66 Z" stroke="#c8942a" stroke-width="2" stroke-linejoin="round" fill="rgba(200,148,42,.05)" stroke-dasharray="220" stroke-dashoffset="220"/>
-    <path class="draw-handle" d="M88,42 Q102,42 102,54 Q102,66 88,66" stroke="#c8942a" stroke-width="2" stroke-linecap="round" stroke-dasharray="80" stroke-dashoffset="80"/>
-    <ellipse class="draw-saucer" cx="60" cy="75.5" rx="32" ry="5.5" stroke="#c8942a" stroke-width="1.5" stroke-dasharray="220" stroke-dashoffset="220"/>
-    <path class="loader-steam"     d="M45,32 Q41,24 45,16 Q49,8 45,1"   stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-    <path class="loader-steam ls2" d="M60,30 Q56,22 60,14 Q64,6 60,-1"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-    <path class="loader-steam ls3" d="M75,32 Q71,24 75,16 Q79,8 75,1"   stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-    <text class="loader-wm"  x="60" y="96"  text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#eeddb0" font-weight="bold" letter-spacing="5">AURELIO</text>
-    <text class="loader-sub" x="60" y="110" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#c8942a" letter-spacing="3.5" font-weight="600">COFFEE &amp; BISTRO</text>
+  <svg class="loader-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect class="draw-ring" x="8" y="8" width="104" height="104" stroke="#a89070" stroke-width="0.8" stroke-dasharray="416" stroke-dashoffset="416"/>
+    <path class="draw-cup" d="M34,84 L34,36 L86,84 L86,36" stroke="#a89070" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter" stroke-dasharray="230" stroke-dashoffset="230"/>
+    <text class="loader-wm"  x="60" y="108" text-anchor="middle" font-family="Georgia,serif" font-size="10" fill="#f0ece6" font-weight="bold" letter-spacing="5">NOIR</text>
+    <text class="loader-sub" x="60" y="118" text-anchor="middle" font-family="Arial,sans-serif" font-size="5" fill="#a89070" letter-spacing="3" font-weight="400">FINE COFFEE</text>
   </svg>
   <div class="loader-bar"><div class="loader-fill"></div></div>
 </div>
@@ -479,15 +461,11 @@
 <nav id="navbar">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <svg class="logo-mark" viewBox="0 0 62 55" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path class="lm-s1" d="M19,14 Q16,8 19,3"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-        <path class="lm-s2" d="M28,12 Q25,6 28,1"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-        <path class="lm-s3" d="M37,14 Q34,8 37,3"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-        <path d="M8,17 L50,17 L50,40 Q50,44 46,44 L12,44 Q8,44 8,40 Z" fill="rgba(200,148,42,.07)" stroke="#c8942a" stroke-width="1.7" stroke-linejoin="round"/>
-        <path d="M50,22 Q60,22 60,30 Q60,38 50,38" fill="none" stroke="#c8942a" stroke-width="1.7" stroke-linecap="round"/>
-        <ellipse cx="29" cy="47.5" rx="21" ry="4" stroke="rgba(200,148,42,.75)" stroke-width="1.3"/>
+      <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="1" y="1" width="26" height="26" stroke="#a89070" stroke-width="0.7" opacity="0.6"/>
+        <path d="M7,21 L7,7 L21,21 L21,7" fill="none" stroke="#a89070" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
       </svg>
-      <span class="logo-wordmark">AURE<span class="accent">LIO</span></span>
+      <span class="logo-wordmark">NOIR</span>
     </a>
     <ul class="nav-links">
       <li><a href="#process">Our Process</a></li>
@@ -527,7 +505,7 @@
   <div class="blob blob-2"></div>
   <div class="hero-ring ring-1"></div>
   <div class="hero-ring ring-2"></div>
-  <div class="float-el fe1">☕</div>
+  <div class="float-el fe1">◆</div>
   <div class="float-el fe2">✦</div>
   <div class="float-el fe3">◈</div>
   <div class="float-el fe4">✦</div>
@@ -537,7 +515,7 @@
     <div class="hero-content">
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-line"></div>
-        <span>Premium Coffee & Bistro</span>
+        <span>Fine Coffee</span>
       </div>
       <h1>The Art<br/>of <em>Coffee</em></h1>
       <p class="hero-sub">Where every cup is a ritual and every plate tells a story. Sourced from the world's finest estates, crafted by passionate artisans.</p>
@@ -574,7 +552,7 @@
 <section class="process-outer" id="process">
   <div class="process-sticky">
     <div class="process-title reveal">
-      <span class="section-label">The Aurelio Way</span>
+      <span class="section-label">The Noir Way</span>
       <h2>From Bean <em style="color:var(--gold);font-style:italic;">to Cup</em></h2>
       <p>Six steps, zero compromise.</p>
     </div>
@@ -599,7 +577,7 @@
       <!-- Center node -->
       <div class="center-node" id="centerNode">
         <i class="fa-solid fa-mug-hot"></i>
-        <span class="cn-label">Aurelio</span>
+        <span class="cn-label">Noir</span>
       </div>
 
       <!-- Satellite nodes -->
@@ -644,7 +622,7 @@
   <div class="container">
     <div class="about-inner">
       <div class="about-img-wrap reveal">
-        <div class="about-img-frame">☕</div>
+        <div class="about-img-frame" style="font-size:3rem;letter-spacing:.2em;color:rgba(168,144,112,.4);font-family:'Playfair Display',serif;font-weight:900;">N</div>
         <div class="about-badge">
           <span class="num">5★</span>
           <span class="lbl">Rated</span>
@@ -653,7 +631,7 @@
       <div class="about-text reveal reveal-d1">
         <span class="section-label">Our Story</span>
         <h2 style="color:var(--cream);">Passion Brewed<br/><em style="color:var(--gold);font-style:italic;">into Every Cup</em></h2>
-        <p>Aurelio was born from a simple obsession: the perfect cup of coffee. Our founder travelled to Ethiopia, Colombia, and Japan to learn from the world's finest roasters before opening our doors in 2019.</p>
+        <p>Noir was born from a simple obsession: the perfect cup of coffee. Our founder travelled to Ethiopia, Colombia, and Japan to learn from the world's finest roasters before opening our doors in 2019.</p>
         <p>Today, we source single-origin beans from over 12 farms, roast in small batches every morning, and serve each cup as a handcrafted experience — never rushed, never compromised.</p>
         <div class="about-stats">
           <div class="stat-item"><div class="stat-num counter" data-target="12" data-suffix="+">12+</div><div class="stat-label">Coffee Origins</div></div>
@@ -671,15 +649,15 @@
   <div class="container">
     <div class="section-head reveal">
       <span class="section-label">Visual Journey</span>
-      <h2 style="color:var(--cream);">Step Inside <em style="color:var(--gold);font-style:italic;">Aurelio</em></h2>
+      <h2 style="color:var(--cream);">Step Inside <em style="color:var(--gold);font-style:italic;">Noir</em></h2>
       <div class="divider"></div>
     </div>
     <div class="gallery-grid">
-      <div class="gallery-cell tall"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#1a0f06,#2d1a08);">☕</div></div>
-      <div class="gallery-cell"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#1c1208,#0f0a05);">🍰</div></div>
-      <div class="gallery-cell"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#0d0b06,#1e1608);">🌿</div></div>
-      <div class="gallery-cell wide"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#1a1005,#261708);min-height:260px;">🏛️ Aurelio Café Interior</div></div>
-      <div class="gallery-cell"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#160e06,#2a1a08);">🥐</div></div>
+      <div class="gallery-cell tall"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#181818,#282828);color:rgba(168,144,112,.3);font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;">N</div></div>
+      <div class="gallery-cell"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#1c1c1c,#0f0f0f);"></div></div>
+      <div class="gallery-cell"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#0d0d0d,#1c1c1c);"></div></div>
+      <div class="gallery-cell wide"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#181818,#242424);min-height:260px;color:rgba(168,144,112,.25);font-family:'Playfair Display',serif;font-size:1.8rem;letter-spacing:.3em;font-weight:900;">NOIR</div></div>
+      <div class="gallery-cell"><div class="gallery-img-ph" style="background:linear-gradient(135deg,#161616,#262626);"></div></div>
     </div>
   </div>
 </section>
@@ -695,7 +673,7 @@
     <div class="testi-grid">
       <div class="testi-card reveal">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"The single-origin pour-over was a revelation. I've been to cafés across three continents and Aurelio stands in a league of its own."</p>
+        <p class="testi-text">"The single-origin pour-over was a revelation. I've been to cafés across three continents and Noir stands in a league of its own."</p>
         <div class="testi-author"><div class="testi-avatar">YA</div><div><div class="testi-name">Youssef A.</div><div class="testi-role">Coffee Enthusiast</div></div></div>
       </div>
       <div class="testi-card reveal reveal-d1">
@@ -705,7 +683,7 @@
       </div>
       <div class="testi-card reveal reveal-d2">
         <div class="testi-stars">★★★★★</div>
-        <p class="testi-text">"Impeccable service, beautiful ambience, and food that would make a Michelin inspector smile. Aurelio is our corporate favourite."</p>
+        <p class="testi-text">"Impeccable service, beautiful ambience, and food that would make a Michelin inspector smile. Noir is our corporate favourite."</p>
         <div class="testi-author"><div class="testi-avatar">LS</div><div><div class="testi-name">Layla S.</div><div class="testi-role">Events Manager</div></div></div>
       </div>
     </div>
@@ -729,17 +707,13 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a href="index.html" class="nav-logo" style="margin-bottom:14px;display:inline-flex;text-decoration:none;">
-          <svg class="logo-mark" viewBox="0 0 62 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="lm-s1" d="M19,14 Q16,8 19,3"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-            <path class="lm-s2" d="M28,12 Q25,6 28,1"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-            <path class="lm-s3" d="M37,14 Q34,8 37,3"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M8,17 L50,17 L50,40 Q50,44 46,44 L12,44 Q8,44 8,40 Z" fill="rgba(200,148,42,.07)" stroke="#c8942a" stroke-width="1.7" stroke-linejoin="round"/>
-            <path d="M50,22 Q60,22 60,30 Q60,38 50,38" fill="none" stroke="#c8942a" stroke-width="1.7" stroke-linecap="round"/>
-            <ellipse cx="29" cy="47.5" rx="21" ry="4" stroke="rgba(200,148,42,.75)" stroke-width="1.3"/>
+          <svg class="logo-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="1" width="26" height="26" stroke="#a89070" stroke-width="0.7" opacity="0.6"/>
+            <path d="M7,21 L7,7 L21,21 L21,7" fill="none" stroke="#a89070" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"/>
           </svg>
-          <span class="logo-wordmark" style="font-size:1.65rem;">AURE<span class="accent">LIO</span></span>
+          <span class="logo-wordmark" style="font-size:1.65rem;">NOIR</span>
         </a>
-        <p>Premium specialty coffee and bistro. Every cup is a ritual, every plate a story.</p>
+        <p>Premium specialty coffee. Every cup is a ritual, every plate a story.</p>
         <div class="footer-social">
           <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
           <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
@@ -776,8 +750,8 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 Aurelio Premium Coffee & Bistro. All rights reserved.</p>
-      <p>Crafted with ☕ and passion.</p>
+      <p>© 2025 Noir Fine Coffee. All rights reserved.</p>
+      <p>Crafted with care and passion.</p>
     </div>
   </div>
 </footer>
@@ -864,12 +838,12 @@ document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click
 
 /* ── MENU PREVIEW DATA ── */
 const menuItems = [
-  { cat:'coffee', emoji:'☕', name:'Ethiopian Pour Over', desc:'Single-origin Yirgacheffe, bright & floral with notes of jasmine and bergamot.', price:85 },
-  { cat:'coffee', emoji:'🥛', name:'Oat Milk Flat White', desc:'Double ristretto over velvety oat milk, the perfect morning companion.', price:70 },
-  { cat:'food',   emoji:'🍳', name:'Truffle Eggs Benedict', desc:'Poached eggs, ibérico ham, hollandaise, black truffle shavings on brioche.', price:195 },
-  { cat:'food',   emoji:'🥗', name:'Burrata & Heirloom', desc:'Creamy burrata, heirloom tomatoes, basil oil, balsamic pearls.', price:160 },
-  { cat:'dessert',emoji:'🍫', name:'Dark Chocolate Fondant', desc:'70% Valrhona, molten centre, salted caramel ice cream, praline crumble.', price:120 },
-  { cat:'dessert',emoji:'🍰', name:'Tiramisu Classico', desc:'Espresso-soaked ladyfingers, mascarpone mousse, dusted cocoa.', price:95 },
+  { cat:'coffee', name:'Ethiopian Pour Over', desc:'Single-origin Yirgacheffe, bright & floral with notes of jasmine and bergamot.', price:85 },
+  { cat:'coffee', name:'Oat Milk Flat White', desc:'Double ristretto over velvety oat milk, the perfect morning companion.', price:70 },
+  { cat:'food',   name:'Truffle Eggs Benedict', desc:'Poached eggs, ibérico ham, hollandaise, black truffle shavings on brioche.', price:195 },
+  { cat:'food',   name:'Burrata & Heirloom', desc:'Creamy burrata, heirloom tomatoes, basil oil, balsamic pearls.', price:160 },
+  { cat:'dessert',name:'Dark Chocolate Fondant', desc:'70% Valrhona, molten centre, salted caramel ice cream, praline crumble.', price:120 },
+  { cat:'dessert',name:'Tiramisu Classico', desc:'Espresso-soaked ladyfingers, mascarpone mousse, dusted cocoa.', price:95 },
 ];
 
 const grid = document.getElementById('menuGrid');
@@ -879,14 +853,14 @@ function renderMenu(cat) {
   const filtered = cat === 'all' ? menuItems : menuItems.filter(m => m.cat === cat);
   grid.innerHTML = filtered.map(item => `
     <div class="menu-card">
-      <div class="card-img-placeholder">${item.emoji}</div>
+      <div class="card-img-placeholder" style="background:linear-gradient(135deg,#141414,#1c1c1c);color:rgba(168,144,112,.25);font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;">N</div>
       <div class="card-body">
         <div class="card-tag">${item.cat}</div>
         <div class="card-title">${item.name}</div>
         <p class="card-desc">${item.desc}</p>
         <div class="card-footer">
           <span class="card-price">EGP ${item.price}</span>
-          <button class="card-add" onclick="addToCart('${item.name.replace(/'/g,"&#39;")}',${item.price},'${item.emoji}')"><i class="fa-solid fa-plus"></i></button>
+          <button class="card-add" onclick="addToCart('${item.name.replace(/'/g,"&#39;")}',${item.price})"><i class="fa-solid fa-plus"></i></button>
         </div>
       </div>
     </div>
@@ -903,10 +877,10 @@ tabBtns.forEach(btn => {
 renderMenu('all');
 
 /* ── CART (mini) ── */
-let cart = JSON.parse(localStorage.getItem('aurelio_cart') || '[]');
-function addToCart(name, price, emoji) {
-  cart.push({ name, price: Number(price), emoji: emoji || '🍽️' });
-  localStorage.setItem('aurelio_cart', JSON.stringify(cart));
+let cart = JSON.parse(localStorage.getItem('noir_cart') || '[]');
+function addToCart(name, price) {
+  cart.push({ name, price: Number(price) });
+  localStorage.setItem('noir_cart', JSON.stringify(cart));
   showToast(`${name} added to bag`);
 }
 
@@ -918,7 +892,7 @@ function showToast(msg) {
     t.style.cssText = 'position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:var(--gold);color:#fff;padding:12px 28px;border-radius:50px;font-weight:600;font-size:.9rem;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;';
     document.body.appendChild(t);
   }
-  t.textContent = '🛍️ ' + msg;
+  t.textContent = msg;
   t.style.opacity = 1;
   clearTimeout(t._timer);
   t._timer = setTimeout(() => { t.style.opacity = 0; }, 2500);
