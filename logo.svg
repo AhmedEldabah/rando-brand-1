@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Noir Fine Coffee">
-  <!-- Thin square border -->
-  <rect x="14" y="14" width="92" height="92" fill="none" stroke="#a89070" stroke-width="0.7" opacity="0.6"/>
-  <!-- Inner thin border -->
-  <rect x="20" y="20" width="80" height="80" fill="none" stroke="#a89070" stroke-width="0.4" opacity="0.3"/>
-
-  <!-- Geometric N lettermark, clean and minimal -->
-  <path d="M42,75 L42,45 L78,75 L78,45" fill="none" stroke="#a89070" stroke-width="2.2" stroke-linecap="square" stroke-linejoin="miter"/>
-
-  <!-- Thin rule -->
-  <line x1="30" y1="87" x2="90" y2="87" stroke="#a89070" stroke-width="0.6" opacity="0.5"/>
-
+  <defs>
+    <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="50%" stop-color="#FF4081"/>
+      <stop offset="100%" stop-color="#7C4DFF"/>
+    </linearGradient>
+    <linearGradient id="lg2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#7C4DFF"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow2" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Outer glow border -->
+  <rect x="10" y="10" width="100" height="100" rx="4" fill="none" stroke="url(#lg1)" stroke-width="1.5" opacity="0.9" filter="url(#glow)"/>
+  <!-- Inner border -->
+  <rect x="17" y="17" width="86" height="86" rx="2" fill="none" stroke="url(#lg1)" stroke-width="0.5" opacity="0.4"/>
+  <!-- N lettermark with gradient glow -->
+  <path d="M36,78 L36,42 L84,78 L84,42" fill="none" stroke="url(#lg1)" stroke-width="3.5" stroke-linecap="square" stroke-linejoin="miter" filter="url(#glow2)"/>
+  <!-- Corner accents -->
+  <circle cx="10" cy="10" r="2" fill="#FFB300" opacity="0.8"/>
+  <circle cx="110" cy="10" r="2" fill="#FF4081" opacity="0.8"/>
+  <circle cx="10" cy="110" r="2" fill="#7C4DFF" opacity="0.8"/>
+  <circle cx="110" cy="110" r="2" fill="#FF4081" opacity="0.8"/>
+  <!-- Rule -->
+  <line x1="24" y1="93" x2="96" y2="93" stroke="url(#lg2)" stroke-width="0.8" opacity="0.6"/>
   <!-- Wordmark -->
-  <text x="60" y="101"
-        text-anchor="middle"
-        font-family="Georgia,'Times New Roman',serif"
-        font-size="11" fill="#f0ece6" font-weight="bold" letter-spacing="6">NOIR</text>
-
+  <text x="60" y="106" text-anchor="middle" font-family="Georgia,'Times New Roman',serif"
+        font-size="11" fill="url(#lg1)" font-weight="bold" letter-spacing="6">NOIR</text>
   <!-- Sub-text -->
-  <text x="60" y="111"
-        text-anchor="middle"
-        font-family="Arial,Helvetica,sans-serif"
-        font-size="5.5" fill="#a89070" letter-spacing="3" font-weight="400">FINE COFFEE</text>
+  <text x="60" y="116" text-anchor="middle" font-family="Arial,Helvetica,sans-serif"
+        font-size="5" fill="#9993A0" letter-spacing="3">FINE COFFEE</text>
 </svg>
