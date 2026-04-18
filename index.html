@@ -355,17 +355,140 @@
     /* ── SCROLL REVEAL ── */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
     .reveal-d1 { transition-delay: .1s; }
     .reveal-d2 { transition-delay: .2s; }
     .reveal-d3 { transition-delay: .3s; }
+
+    /* ── SCROLL PROGRESS BAR ── */
+    .scroll-progress { position: fixed; top: 0; left: 0; height: 2px; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); z-index: 1002; width: 0%; transition: width .1s linear; pointer-events: none; }
+
+    /* ── LOADER ── */
+    #loader { position: fixed; inset: 0; z-index: 9999; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-direction: column; transition: opacity .7s ease, visibility .7s ease; }
+    #loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-logo { width: 180px; height: 210px; }
+    .draw-ring    { animation: drawIn 1.1s ease .1s forwards; }
+    .draw-cup     { animation: drawIn .9s  ease .4s forwards; }
+    .draw-handle  { animation: drawIn .5s  ease 1s   forwards; }
+    .draw-saucer  { animation: drawIn .5s  ease 1.2s forwards; }
+    @keyframes drawIn { to { stroke-dashoffset: 0; } }
+    .loader-steam         { opacity: 0; animation: lSteamIn .5s ease 1.5s forwards; }
+    .loader-steam.ls2     { animation-delay: 1.65s; }
+    .loader-steam.ls3     { animation-delay: 1.8s; }
+    @keyframes lSteamIn   { to { opacity: .9; } }
+    .loader-wm            { opacity: 0; animation: lFadeIn .6s ease 1.6s forwards; }
+    .loader-sub           { opacity: 0; animation: lFadeIn .6s ease 1.8s forwards; }
+    @keyframes lFadeIn    { to { opacity: 1; } }
+    .loader-bar { width: 160px; height: 2px; background: rgba(200,148,42,.15); border-radius: 2px; margin-top: 28px; overflow: hidden; }
+    .loader-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-lt)); border-radius: 2px; animation: loaderFill 2.3s ease forwards; }
+    @keyframes loaderFill { from { width: 0; } to { width: 100%; } }
+
+    /* ── ENHANCED NAVBAR ── */
+    nav { transition: background .3s, box-shadow .3s; }
+    nav.scrolled { background: rgba(8,5,3,.97) !important; box-shadow: 0 4px 28px rgba(0,0,0,.35); }
+
+    /* ── NAV LOGO ── */
+    .nav-logo { display: flex !important; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark { width: 30px; height: 28px; flex-shrink: 0; overflow: visible; }
+    .logo-wordmark { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--cream); letter-spacing: .04em; }
+    .logo-wordmark .accent { color: var(--gold); }
+    .lm-s1,.lm-s2,.lm-s3 { animation: lmSteam 2.8s ease-in-out infinite; }
+    .lm-s2 { animation-delay: .6s; }
+    .lm-s3 { animation-delay: 1.2s; }
+    @keyframes lmSteam {
+      0%,100% { opacity: .4; transform: translateY(0); }
+      50%     { opacity: .9; transform: translateY(-2.5px); }
+    }
+
+    /* ── HAMBURGER ANIMATION ── */
+    .hamburger span { transition: transform .3s ease, opacity .3s ease; }
+    .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: translateX(10px); }
+    .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* ── MOBILE MENU SLIDE-IN ── */
+    .mobile-menu {
+      display: flex !important;
+      transform: translateX(100%);
+      visibility: hidden;
+      transition: transform .38s cubic-bezier(.4,0,.2,1), visibility .38s;
+      width: min(300px, 85vw);
+      left: auto;
+      right: 0;
+      border-left: 1px solid rgba(200,148,42,.12);
+    }
+    .mobile-menu.open { transform: translateX(0); visibility: visible; }
+    .mobile-overlay { position: fixed; inset: 0; z-index: 998; background: rgba(0,0,0,.55); opacity: 0; pointer-events: none; transition: opacity .35s; }
+    .mobile-overlay.open { opacity: 1; pointer-events: all; }
+
+    /* ── BUTTON RIPPLE ── */
+    .btn-primary, .btn-outline { position: relative; overflow: hidden; }
+    .ripple { position: absolute; border-radius: 50%; background: rgba(255,255,255,.22); transform: scale(0); animation: rippleAnim .65s linear; pointer-events: none; }
+    @keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+    /* ── CARD HOVER GLOW ── */
+    .menu-card:hover { box-shadow: 0 16px 48px rgba(0,0,0,.4), 0 0 0 1px rgba(200,148,42,.25); }
+    .testi-card { transition: transform .3s ease, border-color .25s, box-shadow .3s; }
+    .testi-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,.3); }
+    .gallery-cell { transition: transform .35s ease, box-shadow .35s; }
+    .gallery-cell:hover { transform: scale(1.03); box-shadow: 0 12px 40px rgba(0,0,0,.4); z-index: 2; }
+
+    /* ── MOBILE IMPROVEMENTS ── */
+    @media (max-width: 480px) {
+      .hero h1 { font-size: clamp(2.8rem, 14vw, 5rem); }
+      .hero-btns { flex-direction: column; }
+      .hero-btns .btn-primary, .hero-btns .btn-outline { width: 100%; justify-content: center; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .process-canvas { width: 92vw; height: 92vw; }
+    }
+    @media (max-width: 768px) {
+      input, select, textarea { font-size: 16px !important; } /* prevent iOS zoom */
+      .menu-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ── LOADER ── -->
+<div id="loader">
+  <svg class="loader-logo" viewBox="0 0 120 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle class="draw-ring" cx="60" cy="52" r="50" stroke="#c8942a" stroke-width=".9" stroke-dasharray="314" stroke-dashoffset="314"/>
+    <path class="draw-cup" d="M32,34 L88,34 L88,66 Q88,72 82,72 L38,72 Q32,72 32,66 Z" stroke="#c8942a" stroke-width="2" stroke-linejoin="round" fill="rgba(200,148,42,.05)" stroke-dasharray="220" stroke-dashoffset="220"/>
+    <path class="draw-handle" d="M88,42 Q102,42 102,54 Q102,66 88,66" stroke="#c8942a" stroke-width="2" stroke-linecap="round" stroke-dasharray="80" stroke-dashoffset="80"/>
+    <ellipse class="draw-saucer" cx="60" cy="75.5" rx="32" ry="5.5" stroke="#c8942a" stroke-width="1.5" stroke-dasharray="220" stroke-dashoffset="220"/>
+    <path class="loader-steam"     d="M45,32 Q41,24 45,16 Q49,8 45,1"   stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+    <path class="loader-steam ls2" d="M60,30 Q56,22 60,14 Q64,6 60,-1"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+    <path class="loader-steam ls3" d="M75,32 Q71,24 75,16 Q79,8 75,1"   stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+    <text class="loader-wm"  x="60" y="96"  text-anchor="middle" font-family="Georgia,serif" font-size="14" fill="#eeddb0" font-weight="bold" letter-spacing="5">AURELIO</text>
+    <text class="loader-sub" x="60" y="110" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" fill="#c8942a" letter-spacing="3.5" font-weight="600">COFFEE &amp; BISTRO</text>
+  </svg>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- ── SCROLL PROGRESS ── -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ── MOBILE OVERLAY ── -->
+<div class="mobile-overlay" id="mobileOverlay"></div>
+
 <!-- ── NAVBAR ── -->
 <nav id="navbar">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">AURE<span>LIO</span></a>
+    <a href="index.html" class="nav-logo">
+      <svg class="logo-mark" viewBox="0 0 62 55" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="lm-s1" d="M19,14 Q16,8 19,3"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+        <path class="lm-s2" d="M28,12 Q25,6 28,1"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+        <path class="lm-s3" d="M37,14 Q34,8 37,3"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M8,17 L50,17 L50,40 Q50,44 46,44 L12,44 Q8,44 8,40 Z" fill="rgba(200,148,42,.07)" stroke="#c8942a" stroke-width="1.7" stroke-linejoin="round"/>
+        <path d="M50,22 Q60,22 60,30 Q60,38 50,38" fill="none" stroke="#c8942a" stroke-width="1.7" stroke-linecap="round"/>
+        <ellipse cx="29" cy="47.5" rx="21" ry="4" stroke="rgba(200,148,42,.75)" stroke-width="1.3"/>
+      </svg>
+      <span class="logo-wordmark">AURE<span class="accent">LIO</span></span>
+    </a>
     <ul class="nav-links">
       <li><a href="#process">Our Process</a></li>
       <li><a href="#menu">Menu</a></li>
@@ -385,12 +508,15 @@
 
 <!-- ── MOBILE MENU ── -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#process" class="mobile-link">Process</a>
+  <div style="position:absolute;top:20px;right:20px;">
+    <button id="mobileClose" style="background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer;padding:8px;" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <a href="#process" class="mobile-link">Our Process</a>
   <a href="menu.html" class="mobile-link">Menu</a>
   <a href="#about" class="mobile-link">About</a>
   <a href="#gallery" class="mobile-link">Gallery</a>
-  <a href="reserve.html" class="mobile-link">Reserve</a>
-  <a href="order.html" class="btn-primary">Order Now</a>
+  <a href="reserve.html" class="mobile-link">Reservations</a>
+  <a href="order.html" class="btn-primary" style="margin-top:8px;"><i class="fa-solid fa-bag-shopping"></i> Order Now</a>
 </div>
 
 <!-- ── HERO ── -->
@@ -530,10 +656,10 @@
         <p>Aurelio was born from a simple obsession: the perfect cup of coffee. Our founder travelled to Ethiopia, Colombia, and Japan to learn from the world's finest roasters before opening our doors in 2019.</p>
         <p>Today, we source single-origin beans from over 12 farms, roast in small batches every morning, and serve each cup as a handcrafted experience — never rushed, never compromised.</p>
         <div class="about-stats">
-          <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">Coffee Origins</div></div>
-          <div class="stat-item"><div class="stat-num">48k</div><div class="stat-label">Happy Guests</div></div>
-          <div class="stat-item"><div class="stat-num">5yr</div><div class="stat-label">Of Excellence</div></div>
-          <div class="stat-item"><div class="stat-num">24</div><div class="stat-label">Menu Items</div></div>
+          <div class="stat-item"><div class="stat-num counter" data-target="12" data-suffix="+">12+</div><div class="stat-label">Coffee Origins</div></div>
+          <div class="stat-item"><div class="stat-num counter" data-target="48" data-suffix="k">48k</div><div class="stat-label">Happy Guests</div></div>
+          <div class="stat-item"><div class="stat-num counter" data-target="5" data-suffix="yr">5yr</div><div class="stat-label">Of Excellence</div></div>
+          <div class="stat-item"><div class="stat-num counter" data-target="24" data-suffix="">24</div><div class="stat-label">Menu Items</div></div>
         </div>
       </div>
     </div>
@@ -602,7 +728,17 @@
   <div class="container">
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="logo">AURE<span>LIO</span></div>
+        <a href="index.html" class="nav-logo" style="margin-bottom:14px;display:inline-flex;text-decoration:none;">
+          <svg class="logo-mark" viewBox="0 0 62 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="lm-s1" d="M19,14 Q16,8 19,3"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+            <path class="lm-s2" d="M28,12 Q25,6 28,1"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+            <path class="lm-s3" d="M37,14 Q34,8 37,3"  stroke="#c8942a" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M8,17 L50,17 L50,40 Q50,44 46,44 L12,44 Q8,44 8,40 Z" fill="rgba(200,148,42,.07)" stroke="#c8942a" stroke-width="1.7" stroke-linejoin="round"/>
+            <path d="M50,22 Q60,22 60,30 Q60,38 50,38" fill="none" stroke="#c8942a" stroke-width="1.7" stroke-linecap="round"/>
+            <ellipse cx="29" cy="47.5" rx="21" ry="4" stroke="rgba(200,148,42,.75)" stroke-width="1.3"/>
+          </svg>
+          <span class="logo-wordmark" style="font-size:1.65rem;">AURE<span class="accent">LIO</span></span>
+        </a>
         <p>Premium specialty coffee and bistro. Every cup is a ritual, every plate a story.</p>
         <div class="footer-social">
           <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
@@ -659,12 +795,20 @@
 })();
 
 /* ── HAMBURGER ── */
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-hamburger.addEventListener('click', () => {
-  mobileMenu.classList.toggle('open');
-});
-document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.remove('open')));
+function openMenu() {
+  document.getElementById('mobileMenu').classList.add('open');
+  document.getElementById('hamburger').classList.add('open');
+  document.getElementById('mobileOverlay').classList.add('open');
+}
+function closeMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('hamburger').classList.remove('open');
+  document.getElementById('mobileOverlay').classList.remove('open');
+}
+document.getElementById('hamburger').addEventListener('click', openMenu);
+document.getElementById('mobileOverlay').addEventListener('click', closeMenu);
+document.getElementById('mobileClose').addEventListener('click', closeMenu);
+document.querySelectorAll('.mobile-link').forEach(l => l.addEventListener('click', closeMenu));
 
 /* ── SCROLL ANIMATION (PROCESS) ── */
 (function initProcess() {
@@ -784,7 +928,57 @@ function showToast(msg) {
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+/* ── LOADER ── */
+window.addEventListener('load', () => {
+  setTimeout(() => { document.getElementById('loader').classList.add('done'); }, 2350);
+});
+
+/* ── SCROLL PROGRESS + NAVBAR SHRINK ── */
+window.addEventListener('scroll', () => {
+  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  document.getElementById('scrollProgress').style.width = (p * 100) + '%';
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+/* ── BUTTON RIPPLE ── */
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.btn-primary, .btn-outline');
+  if (!btn) return;
+  const r = document.createElement('span');
+  r.className = 'ripple';
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(btn.offsetWidth, btn.offsetHeight);
+  r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
+  btn.appendChild(r);
+  r.addEventListener('animationend', () => r.remove());
+});
+
+/* ── COUNTER ANIMATION ── */
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const suffix = el.dataset.suffix || '';
+  const duration = 1800;
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCounter(e.target);
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(el => counterObs.observe(el));
 </script>
 </body>
 </html>
